@@ -1,5 +1,3 @@
-package w1;
-
 /**
  * Program converts arabic numbers from range 1-4999 to roman numbers
  *
