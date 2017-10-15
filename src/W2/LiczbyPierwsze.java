@@ -2,7 +2,6 @@ package W2;
 
 import java.util.Arrays;
 
-import static java.lang.Math.min;
 import static java.lang.Math.sqrt;
 
 public final class LiczbyPierwsze {
@@ -10,7 +9,6 @@ public final class LiczbyPierwsze {
     private final static int POTEGA2 = 21;
     private final static int[] SITO = new int[1 << POTEGA2];
     private final static long LIMIT = 1 << 21;
-    private final static long BRUTE_LIMIT = 1000000009;
 
     static {
         SITO[1] = 1;
@@ -32,7 +30,8 @@ public final class LiczbyPierwsze {
         if (x < LIMIT)
             return (SITO[(int) x] == x);
         else {
-            for (long i = 2; i <= (long) sqrt(x) + 1; i++)
+            if (x % 2 == 0) return false;
+            for (long i = 3; i <= (long) sqrt(x) + 1; i += 2)
                 if (x % i == 0)
                     return false;
         }
@@ -46,9 +45,8 @@ public final class LiczbyPierwsze {
      * @return array of prime factors of x
      */
     public static long[] naCzynnikPierwsze(long x) {
-        long[] factors = new long[70]; // max number of prime factors is 65: LONG_MIN = -1*2^64
+        long[] factors = new long[64]; // max number of prime factors is 64: LONG_MIN = -1*2^63
         int it = 0; // iterator and indicator of number of prime factors
-
         // two special cases:
         if (x == -1 || x == 0 || x == 1) { // -1,0,1
             factors[it++] = x;
@@ -62,25 +60,9 @@ public final class LiczbyPierwsze {
             return Arrays.copyOfRange(factors, 0, it);
         }
 
-        // factorization
         if (x < 0) { // convert negatives to positives
             factors[it++] = -1;
             x *= -1;
-        }
-
-
-        if (x < LIMIT) { // case: x < LIMIT
-            while (x > 1) {
-                factors[it++] = SITO[(int) x];
-                x /= SITO[(int) x];
-            }
-        } else if (x > LIMIT) { // case: x > LIMIT and has prime factors in range [0, LIMIT)
-            for (long i = 2; x > 1 && i < min(BRUTE_LIMIT, (long) sqrt(x)); i++) {
-                while ((i < LIMIT && SITO[(int) i] == i && x % i == 0) || (i > LIMIT && x % i == 0)) {
-                    factors[it++] = i;
-                    x /= i;
-                }
-            }
         }
 
         if (czyPierwsza(x)) { // if prime return it
@@ -88,27 +70,29 @@ public final class LiczbyPierwsze {
             return Arrays.copyOfRange(factors, 0, it);
         }
 
-        if (x > LIMIT) { // case: x > LIMIT and has prime factors near sqrt(x)
-            long i = (long) sqrt(x), j = i;
-            if ((i + 1) * (i + 1) == x) { // for assumption that (double)sqrt(x) is slightly smaller than real sqrt
-                i++;
-                j++;
+        // factorization
+        if (x < LIMIT) { // case: x < LIMIT
+            while (x > 1) {
+                factors[it++] = SITO[(int) x];
+                x /= SITO[(int) x];
             }
-            while (i * j != x) { // works also for i = exact sqrt(x)
-                if (i * j > x || i * j < 0)// if bigger or overshot on negatives
-                    i--;
-                else
-                    j++;
-                if (i <= 0 || j > x || j < 0)
-                    break;
+        } else {
+            while (x % 2 == 0) { // speeds up whole thing 2 times :D
+                factors[it++] = 2;
+                x /= 2;
             }
-            if (i <= 1 || j >= x || j < 0) { // so x is prime after all...
-                factors[it++] = x;
-            } else { // and here it is a product of two big primes
-                factors[it++] = i;
-                factors[it++] = j;
+            for (long i = 3; x > 1 && i <= (long) sqrt(x) + 1; i += 2) {
+                while (
+                        (i < LIMIT && SITO[(int) i] == i && x % i == 0) ||
+                                (i > LIMIT && x % i == 0)
+                        ) {
+                    factors[it++] = i;
+                    x /= i;
+                }
             }
         }
+        if (x > 1)
+            factors[it++] = x;
         return Arrays.copyOfRange(factors, 0, it);
     }
 }
