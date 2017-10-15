@@ -1,3 +1,5 @@
+package W1;
+
 /**
  * Program converts arabic numbers from range 1-4999 to roman numbers
  *
@@ -16,7 +18,7 @@ public class Roman {
      */
     public static String toRoman(String number) {
 
-        int x = new Integer(number);
+        int x = Integer.valueOf(number);
         if (x <= 0 || x >= 5000)
             throw new IllegalArgumentException("liczba " + x + " spoza zakresu 1-4999");
 
@@ -32,7 +34,7 @@ public class Roman {
         return xRoman;
     }
 
-    public static void main(String[] args) {
+    public static void toRoman_main(String[] args) {
         for (String number : args) {
             System.out.println(number + " " + toRoman(number));
         }
