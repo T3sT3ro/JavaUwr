@@ -34,7 +34,7 @@ public class Roman {
         return xRoman;
     }
 
-    public static void toRoman_main(String[] args) {
+    public static void main(String[] args) {
         for (String number : args) {
             System.out.println(number + " " + toRoman(number));
         }
