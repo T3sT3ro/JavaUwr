@@ -10,16 +10,16 @@ public class Prosta {
         this.c = c;
     }
 
-    public static Prosta move(Prosta p, Wektor v) {
+    public static Prosta przesuń(Prosta p, Wektor v) {
         return new Prosta(p.a, p.b, p.c - (p.a * v.dx) - (p.b * v.dy));
     }
 
     public static boolean isParallel(Prosta p, Prosta q) {
-        return Math.abs(p.a / p.b - q.a / q.b) < Punkt.EPSILON;
+        return Math.abs(p.a * q.b - q.a * p.b) < Punkt.EPSILON;
     }
 
     public static boolean isPerpendicular(Prosta p, Prosta q) {
-        return Math.abs(p.a / p.b + q.b / q.a) < Punkt.EPSILON;
+        return Math.abs((p.a / p.b) * (q.a / q.b) - 1.0f) < Punkt.EPSILON;
     }
 
     /**
@@ -28,8 +28,8 @@ public class Prosta {
      * - intersection point is out of double limits
      * - lines cover each other (with precision 'EPSILON')
      *
-     * @param p
-     * @param q
+     * @param p first line
+     * @param q second line
      * @return point of intersection, null if point cannot be calculated
      */
     public static Punkt getIntersection(Prosta p, Prosta q) {
@@ -44,5 +44,17 @@ public class Prosta {
         if (_x.isInfinite() || _x.isNaN() || _y.isInfinite() || _y.isNaN())
             return null;
         return new Punkt(_x, _y);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Prosta p = (Prosta) o;
+
+        return (Math.abs(a - p.a) < Punkt.EPSILON)
+                && (Math.abs(b - p.b) < Punkt.EPSILON)
+                && (Math.abs(c - p.c) < Punkt.EPSILON);
     }
 }

@@ -1,139 +1,357 @@
 package W3;
 
-import W3.geometria.Figura;
-import W3.geometria.Odcinek;
-import W3.geometria.Punkt;
-import W3.geometria.Trojkat;
+import W3.geometria.*;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.geom.Line2D;
-import java.util.ArrayList;
+import java.util.Random;
+import java.util.Scanner;
 
-public class GeometryTest extends JPanel {
+public class GeometryTest {
 
-    private static final Color BACKGROUND_COLOR = Color.WHITE;
-    private static final Color AXIS_MAIN_COLOR = Color.BLACK;
-    private static final Stroke AXIS_MAIN_STROKE = new BasicStroke(1f);
-    private static final Color AXIS_GUIDE_COLOR = Color.LIGHT_GRAY;
-    private static final Stroke AXIS_GUIDE_STROKE = new BasicStroke(1f);
-    private static final Color POINT_COLOR = Color.RED;
-    private static final Stroke POINT_STROKE = new BasicStroke(2f);
-    private static final int POINT_RADIUS = 6;
-    private static final Color ACTIVE_COLOR = Color.ORANGE;
-    private static final Stroke ACTIVE_STROKE = new BasicStroke(2f);
-    private static final int GUIDE_DISTANCE = 1;
+    private static Random g = new Random();
 
-    private static final int width = 1200;
-    private static final int height = 800;
-    private static ArrayList<Figura> figury = new ArrayList<Figura>();
-    private static Figura active;
-    Timer timer;
-    private double zoom = 50;
-    private int offsetX;
-    private int offsetY;
+    // random from 0.0f to 100.0f
+    private static double r() {
+        return g.nextDouble() * 100f;
 
-    public GeometryTest() {
-        setPreferredSize(new Dimension(width, height));
-
-        offsetX = width / 2;
-        offsetY = height / 2;
-        figury.add(new Punkt(7, 7));
-        figury.add(new Odcinek(2, 2, 3, 3));
-        figury.add(new Trojkat(0, 0, -1.3, -1.5, 0, -1));
-        try {
-            Trojkat tr = (Trojkat) figury.get(2).clone();
-            tr.obruć(0, 0, Math.toRadians(30));
-            figury.add(tr);
-        } catch (CloneNotSupportedException e) {
-            System.err.println("Couldn't clone a triangle");
-            e.printStackTrace();
-        }
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                JFrame frame = new JFrame();
+        System.out.println("# Program checking geometry library by Tooster");
+        System.out.println("# Current error margin - " + Punkt.getErrorMargin());
+        System.out.println("# Running tests...");
 
-                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                frame.getContentPane().add(new GeometryTest());
-                frame.setResizable(false);
-                frame.setSize(width + 100, height + 100);
-                frame.pack();
 
-                frame.setLocationByPlatform(true);
-                frame.setVisible(true);
-            }
-        });
-    }
+        /*
+         * TODO JUnit tests
+         */
 
-    public void drawAxis(Graphics2D g) {
-        g.setColor(AXIS_GUIDE_COLOR);
-        g.setStroke(AXIS_GUIDE_STROKE);
-        for (int i = GUIDE_DISTANCE; i * zoom <= offsetX; i += GUIDE_DISTANCE) {
-            g.drawLine(i * (int) zoom, -offsetY * (int) zoom, i * (int) zoom, offsetY * (int) zoom);
-            g.drawLine(-i * (int) zoom, -offsetY * (int) zoom, -i * (int) zoom, offsetY * (int) zoom);
-            g.drawLine(-offsetX * (int) zoom, i * (int) zoom, offsetX * (int) zoom, i * (int) zoom);
-            g.drawLine(-offsetX * (int) zoom, -i * (int) zoom, offsetX * (int) zoom, -i * (int) zoom);
-        }
+        objectsInitializationCreationTest();
 
-        g.setColor(AXIS_MAIN_COLOR);
-        g.setStroke(AXIS_MAIN_STROKE);
-        Line2D OX = new Line2D.Double(-offsetX * zoom, 0 * zoom, offsetX * zoom, 0 * zoom);
-        Line2D OY = new Line2D.Double(0 * zoom, -offsetY * zoom, 0 * zoom, offsetY * zoom);
-        g.draw(OX);
-        g.draw(OY);
-    }
+        objectsRotationTests();
 
-    private void drawPunkt(Graphics2D g, Punkt p) {
-        g.setColor(POINT_COLOR);
-        g.setStroke(POINT_STROKE);
-        g.fillOval((int) (p.getX() * zoom) - POINT_RADIUS / 2, (int) ((-1) * p.getY() * zoom) - POINT_RADIUS / 2, POINT_RADIUS, POINT_RADIUS);
+        objectsMirrorTest();
 
-    }
+        objectsMoveTest();
 
-    private void drawOdcinek(Graphics2D g, Odcinek o) {
-        g.setColor(ACTIVE_COLOR);
-        g.setStroke(ACTIVE_STROKE);
-        g.drawLine((int) (o.A.getX() * zoom), (int) (o.A.getY() * (-1) * zoom), (int) (o.B.getX() * zoom), (int) (o.B.getY() * (-1) * zoom));
-        drawPunkt(g, o.A);
-        drawPunkt(g, o.B);
-    }
+        objectsRotationCorrectnessTest();
 
-    public void drawTrojkat(Graphics2D g, Trojkat t) {
-        g.setColor(ACTIVE_COLOR);
-        g.setStroke(ACTIVE_STROKE);
-        drawOdcinek(g, new Odcinek(t.A, t.B));
-        drawOdcinek(g, new Odcinek(t.B, t.C));
-        drawOdcinek(g, new Odcinek(t.C, t.A));
-        drawPunkt(g, t.A);
-        drawPunkt(g, t.B);
-        drawPunkt(g, t.C);
-    }
+        objectsMirrorCorrectnessTest();
 
-    public void drawElements(Graphics2D g) {
-        for (Figura element : figury) {
-            if (element instanceof Punkt) {
-                drawPunkt(g, (Punkt) element);
-            } else if (element instanceof Odcinek) {
-                drawOdcinek(g, (Odcinek) element);
-            } else if (element instanceof Trojkat) {
-                drawTrojkat(g, (Trojkat) element);
-            }
+        objectsMoveCorrectnessTest();
+
+        wektorAddTest();
+
+        prostaMoveTest();
+
+        prostaMethoodsTest();
+
+        System.out.println("TESTING ENDED.\n");
+        System.out.println("# Bonus: Interactive tests:");
+        System.out.println("#    ^ to draw a point in visualization mode hold 'p' and click on canvas");
+        System.out.println("#    ^ to draw a line in visualization mode hold 'l' and click 2 in points on the canvas");
+        System.out.println("#    ^ to draw a triangle in visualization mode hold 't' and click in 3 points on the canvas");
+        System.out.println("#    ^ to zoom (zooms the center of coordinates system for now) use mouse wheel");
+        System.out.println("#    ^ to move canvas SHIFT+drag canvas holding LMB");
+
+        GeometryTestVisualization.visualization();
+        Scanner scanner = new Scanner(System.in);
+        while (scanner.hasNext()) {
+            System.out.println(scanner.next());
         }
     }
 
-    @Override
-    public void paintComponent(Graphics g) {
-        Graphics2D g2d = (Graphics2D) g;
-        RenderingHints rh = new RenderingHints(
-                RenderingHints.KEY_TEXT_ANTIALIASING,
-                RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-        g2d.setRenderingHints(rh);
-        g.translate(offsetX, offsetY); // translate origin to offsetX , offsetY
-        drawAxis(g2d);
-        drawElements(g2d);
+    private static void objectsInitializationCreationTest() {
+        try {
+            Punkt A = new Punkt(r(), r());
+        } catch (IllegalArgumentException e) {
+            System.err.println(" FAILED: Couldn't initialize Point");
+            e.printStackTrace();
+            return;
+        }
+        try {
+            Odcinek o = new Odcinek(
+                    new Punkt(r(), r()),
+                    new Punkt(r(), r()));
+        } catch (IllegalArgumentException e) {
+            System.err.println(" FAILED: Couldn't initialize Line");
+            e.printStackTrace();
+            return;
+        }
+        try {
+            Odcinek o = new Odcinek(0, 0, 0, 0);
+        } catch (IllegalArgumentException e) {
+            System.out.println(" PASSED: Cannot create line from same points");
+        }
+
+        try {
+            Trojkat o = new Trojkat(
+                    new Punkt(r(), r()),
+                    new Punkt(r(), r()),
+                    new Punkt(r(), r()));
+        } catch (IllegalArgumentException e) {
+            System.err.println(" FAILED: Couldn't initialize Line");
+            e.printStackTrace();
+            return;
+        }
+        try {
+            Trojkat o = new Trojkat(0, 0, 0, 0, 0, 0);
+        } catch (IllegalArgumentException e) {
+            System.out.println(" PASSED: Cannot create triangle from same points");
+        }
+        try {
+            Trojkat o = new Trojkat(0, 0, 1, 1, 2, 2);
+        } catch (IllegalArgumentException e) {
+            System.out.println(" PASSED: Cannot create triangle from collinear points");
+        }
+        System.out.println("PASSED: Initialization stage");
+    }
+
+    private static void objectsRotationTests() {
+        try {
+            Punkt p = new Punkt(r(), r());
+            p.obruć(r(), r(), g.nextInt());
+        } catch (Exception e) {
+            System.err.println(" FAILED: Rotation of point");
+            e.printStackTrace();
+            return;
+        }
+        try {
+            Odcinek o = new Odcinek(
+                    r(), r(),
+                    r(), r());
+
+            o.obruć(r(), r(), g.nextInt());
+        } catch (Exception e) {
+            System.err.println(" FAILED: Rotation of line segment");
+            e.printStackTrace();
+            return;
+        }
+        try {
+            Trojkat t = new Trojkat(
+                    r(), r(),
+                    r(), r(),
+                    r(), r());
+
+            t.obruć(r(), r(), g.nextInt());
+        } catch (Exception e) {
+            System.err.println(" FAILED: Rotation of triangle");
+            e.printStackTrace();
+            return;
+        }
+        System.out.println("PASSED: Rotation of objects");
+    }
+
+    private static void objectsMirrorTest() {
+        try {
+            Punkt p = new Punkt(r(), r());
+            p.odbij(new Prosta(r(), r(), r()));
+        } catch (Exception e) {
+            System.err.println(" FAILED: Mirror of point");
+            e.printStackTrace();
+            return;
+        }
+        try {
+            Odcinek o = new Odcinek(r(), r(), r(), r());
+            o.odbij(new Prosta(r(), r(), r()));
+        } catch (Exception e) {
+            System.err.println(" FAILED: Mirror of point");
+            e.printStackTrace();
+            return;
+        }
+        try {
+            Trojkat t = new Trojkat(r(), r(), r(), r(), r(), r());
+            t.odbij(new Prosta(r(), r(), r()));
+        } catch (Exception e) {
+            System.err.println(" FAILED: Mirror of point");
+            e.printStackTrace();
+            return;
+        }
+        System.out.println("PASSED: Mirror of objects");
+    }
+
+    private static void objectsMoveTest() {
+        try {
+            Punkt p = new Punkt(r(), r());
+            p.przesuń(new Wektor(r(), r()));
+        } catch (Exception e) {
+            System.err.println(" FAILED: Move test of Point failed");
+            e.printStackTrace();
+            return;
+        }
+        try {
+            Odcinek o = new Odcinek(r(), r(), r(), r());
+            o.przesuń(new Wektor(r(), r()));
+        } catch (Exception e) {
+            System.err.println(" FAILED: Move test of Line failed");
+            e.printStackTrace();
+            return;
+        }
+        try {
+            Trojkat t = new Trojkat(r(), r(), r(), r(), r(), r());
+            t.przesuń(new Wektor(r(), r()));
+        } catch (Exception e) {
+            System.err.println(" FAILED: Move test of Triangle failed");
+            e.printStackTrace();
+            return;
+        }
+        System.out.println("PASSED: Moving objects with vectors");
+    }
+
+    private static void objectsRotationCorrectnessTest() {
+        try {
+            Punkt p = new Punkt(r(), r());
+            Punkt p2 = (Punkt) p.clone();
+            if (!p2.equals(p)) {
+                System.err.println(" FAILED: clone() on Point");
+                return;
+            }
+            Punkt r = new Punkt(r(), r());
+            for (int i = 0; i < 360; i++)
+                p2.obruć(r, Math.toRadians(1));
+            if (!p2.equals(p))
+                System.err.println(" FAILED: rotation error for angle in degrees is too big");
+
+            p2 = (Punkt) p.clone();
+            for (int i = 0; i < 100; i++)
+                p2.obruć(r, Math.PI);
+            if (!p2.equals(p))
+                System.err.println(" FAILED: rotation error for angle in radians is too big");
+
+        } catch (Exception e) {
+            System.err.println(" FAILED: rotation point correctness test");
+            e.printStackTrace();
+            return;
+        }
+        System.out.println("PASSED: rotation correctness tests");
+    }
+
+    private static void objectsMirrorCorrectnessTest() {
+        try {
+            Punkt p = new Punkt(r(), r());
+            Punkt p2 = (Punkt) p.clone();
+            if (!p2.equals(p)) {
+                System.err.println(" FAILED: clone() on Point");
+                return;
+            }
+            Punkt r = new Punkt(r(), r());
+            double a = r(), b = r(), c = r();
+            for (int i = 0; i < 100; i++)
+                p2.odbij(new Prosta(a, b, c));
+            if (!p2.equals(p))
+                System.err.println(" FAILED: mirror error is too big");
+            a = 1;
+            b = 0;
+            c = 0;
+            p2.odbij(new Prosta(a, b, c));
+            p2.odbij(new Prosta(a, b, c));
+            if (!p2.equals(p))
+                System.err.println(" FAILED: vertical mirror failed");
+            a = 0;
+            b = 1;
+            c = 0;
+            p2.odbij(new Prosta(a, b, c));
+            p2.odbij(new Prosta(a, b, c));
+            if (!p2.equals(p))
+                System.err.println(" FAILED: horizontal mirror failed");
+        } catch (Exception e) {
+            System.err.println(" FAILED: mirror point correctness test");
+            e.printStackTrace();
+            return;
+        }
+        System.out.println("PASSED: mirror correctness tests");
+    }
+
+    private static void objectsMoveCorrectnessTest() {
+        try {
+            Punkt p = new Punkt(r(), r());
+            Punkt p2 = (Punkt) p.clone();
+            if (!p2.equals(p)) {
+                System.err.println(" FAILED: clone() on Point");
+                return;
+            }
+            double dx = r(), dy = r();
+            for (int i = 0; i < 100; i++) {
+                p2.przesuń(new Wektor(dx, dy));
+                p2.przesuń(Wektor.multiply(new Wektor(dx, dy), -1.0f));
+            }
+            if (!p2.equals(p))
+                System.err.println(" FAILED: move error too big");
+
+            p2 = (Punkt) p.clone();
+            p2.przesuń(new Wektor(1, 1));
+            if (!p2.equals(new Punkt(p.getX() + 1.0f, p.getY() + 1.0f)))
+                System.err.println(" FAILED: move doesn't work");
+
+        } catch (Exception e) {
+            System.err.println(" FAILED: move point correctness test");
+            e.printStackTrace();
+            return;
+        }
+        System.out.println("PASSED: move correctness tests");
+    }
+
+    private static void wektorAddTest() {
+        try {
+            double dx = r(), dy = r();
+            Wektor u = new Wektor(dx, dy);
+            Wektor v = new Wektor(dx / 2f, dy / 2f);
+            Wektor w = Wektor.add(v, v);
+            Wektor x = new Wektor(2f * dx, 2f * dy);
+            Wektor z = Wektor.add(x, Wektor.multiply(u, -1f));
+            if (!u.equals(w) || !u.equals(z)) {
+                System.err.println(" FAILED: adding vectors doesn't work");
+            }
+        } catch (Exception e) {
+            System.err.println(" FAILED: adding vectors test");
+            e.printStackTrace();
+            return;
+        }
+        System.out.println("PASSED: adding vectors tests");
+    }
+
+    private static void prostaMoveTest() {
+        try {
+            Prosta p = new Prosta(r(), r(), r());
+            Wektor w = new Wektor(r(), r());
+            Prosta p2 = Prosta.przesuń(p, w);
+            Prosta p3 = Prosta.przesuń(p2, Wektor.multiply(w, -1f));
+            if (!p3.equals(p)) {
+                System.err.println(" FAILED: moving lines doesn't work");
+            }
+        } catch (Exception e) {
+            System.err.println(" FAILED: moving lines test");
+            e.printStackTrace();
+            return;
+        }
+        System.out.println("PASSED: adding vectors tests");
+    }
+
+    private static void prostaMethoodsTest() {
+        try {
+            Prosta p = new Prosta(r(), r(), r());
+            Prosta p_para = new Prosta(p.a, p.b, r());
+            Prosta p_perp = new Prosta(p.b, p.a, r());
+            if (!Prosta.isParallel(p, p_para))
+                System.err.println(" FAILED: parallel checking not working");
+            else
+                System.out.println(" PASSED: parallel checking");
+            if (!Prosta.isPerpendicular(p, p_perp))
+                System.err.println(" FAILED: perpendicular checking not working");
+            else
+                System.out.println(" PASSED: perpendicular checking");
+            Prosta x = new Prosta(1, -1, -1);
+            Prosta y = new Prosta(1, 1, 0);
+            if (!Prosta.getIntersection(x, y).equals(new Punkt(0.5f, -0.5f)))
+                System.err.println(" FAILED: intersection not working");
+            else if (Prosta.getIntersection(x, y) == null)
+                System.out.println(" INFO: intersection doesn't exist or is out of bounds");
+            else
+                System.out.println(" PASSED: intersection checking");
+        } catch (Exception e) {
+            System.err.println(" FAILED: parallel or perpendicular or intersection method test");
+            e.printStackTrace();
+            return;
+        }
+        System.out.println("PASSED: Prosta methods tests");
     }
 }

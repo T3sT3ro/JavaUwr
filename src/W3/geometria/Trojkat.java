@@ -21,6 +21,9 @@ public class Trojkat extends Figura {
     }
 
     private void validate() throws IllegalArgumentException {
+        if (A == null || B == null || C == null)
+            throw new IllegalArgumentException("Endpoint cannot be null!");
+
         // Xb*Yc-Xc*Yb == 0 moved by vector a
         boolean collinear =
                 Math.abs((B.getX() - A.getX()) * (C.getY() - A.getY())
@@ -57,7 +60,6 @@ public class Trojkat extends Figura {
 
     @Override
     public Trojkat clone() throws CloneNotSupportedException {
-        Trojkat t = new Trojkat((Punkt) this.A.clone(), (Punkt) this.B.clone(), (Punkt) this.C.clone());
-        return t;
+        return new Trojkat((Punkt) this.A.clone(), (Punkt) this.B.clone(), (Punkt) this.C.clone());
     }
 }

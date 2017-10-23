@@ -39,11 +39,22 @@ public class Wektor {
     /**
      * Returns vector a->b
      *
-     * @param a
-     * @param b
+     * @param a starting point
+     * @param b ending point
      * @return vector a->b
      */
     public static Wektor between(Punkt a, Punkt b) {
         return new Wektor(b.getX() - a.getX(), b.getY() - a.getY());
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Wektor wektor = (Wektor) o;
+
+        return (Math.abs(dx - wektor.dx) < Punkt.EPSILON) && (Math.abs(dy - wektor.dy) < Punkt.EPSILON);
+    }
+
 }

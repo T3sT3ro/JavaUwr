@@ -10,7 +10,7 @@ public class Punkt extends Figura implements Cloneable {
      * so we check if their difference is smaller then our EPSILON
      * (thus numbers are approximately equal)
      */
-    protected final static double EPSILON = 1e-100;
+    protected final static double EPSILON = 1e-10;
 
     private double x, y;
 
@@ -40,15 +40,18 @@ public class Punkt extends Figura implements Cloneable {
         this.y = y;
     }
 
+    public static final double getErrorMargin() {
+        return EPSILON;
+    }
+
     /**
      * Compare points and return true if p has x greater, or y greater when x is equal than 'this'
      *
-     * @return
+     * @return true if this is less than p
      */
     public boolean lessThan(Punkt p) {
         return x < p.x || (x == p.x && y < p.y);
     }
-
 
     @Override
     public void przesuń(Wektor v) {

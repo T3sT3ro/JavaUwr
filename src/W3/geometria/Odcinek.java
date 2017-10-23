@@ -20,6 +20,8 @@ public class Odcinek extends Figura {
     }
 
     private void validate() throws IllegalArgumentException {
+        if (A == null || B == null)
+            throw new IllegalArgumentException("Endpoint cannot be null!");
         if (A.equals(B))
             throw new IllegalArgumentException("Endpoints must be different!");
     }
@@ -44,8 +46,7 @@ public class Odcinek extends Figura {
 
     @Override
     public Object clone() throws CloneNotSupportedException {
-        Odcinek odcinek = new Odcinek((Punkt) this.A.clone(), (Punkt) this.B.clone());
-        return odcinek;
+        return new Odcinek((Punkt) this.A.clone(), (Punkt) this.B.clone());
     }
 
 }
