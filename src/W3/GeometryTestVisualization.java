@@ -1,9 +1,6 @@
 package W3;
 
-import W3.geometria.Figura;
-import W3.geometria.Odcinek;
-import W3.geometria.Punkt;
-import W3.geometria.Trojkat;
+import W3.geometria.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -27,7 +24,7 @@ public class GeometryTestVisualization extends JPanel {
 
     private static final int width = 1200;
     private static final int height = 800;
-    private static ArrayList<Figura> figury = new ArrayList<>();
+    public static ArrayList<Figura> figury = new ArrayList<>();
     private static Figura active;
     Timer timer;
     private double zoom;
@@ -55,6 +52,25 @@ public class GeometryTestVisualization extends JPanel {
         offset.x = width / 2;
         offset.y = height / 2;
         zoom = Math.pow(zoomBase, zoomPow);
+
+        try {
+            Trojkat t = new Trojkat(4, 4, 0.1, -1.1, -3, -0.1);
+            t.przesuń(new Wektor(1, 5));
+            Trojkat t2 = t.clone();
+            t2.odbij(new Prosta(0, 1, 0));
+            Trojkat t3 = t.clone();
+            t3.odbij(new Prosta(1, 0, 3));
+            Trojkat t4 = t.clone();
+            t4.obruć(-7, -7, Math.toRadians(120));
+            figury.add(t);
+            figury.add(t2);
+            figury.add(t3);
+            figury.add(t4);
+        } catch (Exception e) {
+            System.err.println("Some error in visualization.");
+            e.printStackTrace();
+        }
+
     }
 
     public static void visualization() {
