@@ -6,9 +6,9 @@ import static java.lang.Math.sqrt;
 
 public final class LiczbyPierwsze {
 
-    private final static int POTEGA2 = 21;
-    private final static int[] SITO = new int[1 << POTEGA2];
-    private final static long LIMIT = 1 << 21;
+    private static final int POTEGA2 = 21;
+    private static final int[] SITO = new int[1 << POTEGA2];
+    private static final long LIMIT = 1 << 21;
 
     static {
         SITO[1] = 1;

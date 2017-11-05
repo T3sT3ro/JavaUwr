@@ -10,7 +10,7 @@ public class Punkt extends Figura implements Cloneable {
      * so we check if their difference is smaller then our EPSILON
      * (thus numbers are approximately equal)
      */
-    protected final static double EPSILON = 1e-10;
+    protected static final double EPSILON = 1e-10;
 
     private double x, y;
 
