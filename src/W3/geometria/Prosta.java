@@ -10,7 +10,7 @@ public class Prosta {
         this.c = c;
     }
 
-    public static Prosta przesuń(Prosta p, Wektor v) {
+    public static Prosta przesun(Prosta p, Wektor v) {
         return new Prosta(p.a, p.b, p.c - (p.a * v.dx) - (p.b * v.dy));
     }
 

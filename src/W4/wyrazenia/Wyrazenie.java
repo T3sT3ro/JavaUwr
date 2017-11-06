@@ -1,37 +1,53 @@
 package W4.wyrazenia;
 
-//TODO dodać zabezpieczenia na double (dzielenie przez 0, NaN, Infinity) i wyjątki
-//TODO modyfikatory dostępu
-//TODO doc
-//TODO package-info.java
 
-import W4.wyrazenia.unary.*;
-
+/**
+ * Klasa abstrakcyjna reprezentujaca Drzewo Wyrazen.
+ * Moze skladac sie z innych wyrazen, stalych i zmiennych
+ */
 public abstract class Wyrazenie {
 
+    /**
+     * Metoda zwracajaca wynik sumy wyrazen
+     * Zglasza wyjatek jesli ktorekolwiej wyrazenie jest null
+     *
+     * @param wyr kolejne wyrazenia do sumowania
+     * @return suma wynikow wyrazen
+     */
     public static double sumuj(Wyrazenie... wyr) {
         double wynik = 0f;
         for (Wyrazenie w : wyr) {
+            if (w == null)
+                throw new IllegalArgumentException("Wyrazenie nie moze byc puste!");
             wynik += w.oblicz();
         }
         return wynik;
     }
 
+    /**
+     * Metoda zwracajaca wynik iloczynu wyrazen
+     * Zglasza wyjatek jesli ktorekolwiej wyrazenie jest null
+     *
+     * @param wyr kolejne wyrazenia do wymnozenia
+     * @return iloczyn wynikow wyrazen
+     */
     public static double pomnoz(Wyrazenie... wyr) {
         double wynik = 1f;
         for (Wyrazenie w : wyr) {
+            if (w == null)
+                throw new IllegalArgumentException("Wyrazenie nie moze byc puste!");
             wynik *= w.oblicz();
         }
         return wynik;
     }
 
     /**
-     * oblicza wyrażenie i zwraca wynik typu double
+     * Oblicza wynik wyrazenia typu double
      */
-    public abstract double oblicz() throws ArithmeticException;
+    public abstract double oblicz();
 
     /**
-     * zwraca wyrażenie w nawiasach jeśli to potrzebne i bez w przeciwnym wypadku
+     * Zwraca napis reprezentujacy wyrazenie w nawiasach jesli jest to potrzebne
      */
     protected String toStringFormat() {
         if (
@@ -42,17 +58,28 @@ public abstract class Wyrazenie {
                         this instanceof Arctan ||
                         this instanceof Przeciwienstwo ||
                         this instanceof Abs ||
-                        this instanceof binary.Max ||
-                        this instanceof binary.Min ||
-                        this instanceof binary.Logarytm
+                        this instanceof Max ||
+                        this instanceof Min ||
+                        this instanceof Logarytm
                 )
             return this.toString();
         return "(" + this.toString() + ")";
     }
 
+    /**
+     * Zwraca napis reprezentujacy wyrazenie
+     */
+    public abstract String toString();
+
+    /**
+     * Porownuje wartosci dwoch wyrazen za pomoca Double.compare()
+     *
+     * @param obj obiekt do porownania
+     * @return true jesli Double.compare zwraca 0
+     */
     @Override
     public boolean equals(Object obj) {
-        if (obj == null) return false;
+        if (obj == null || !(obj instanceof Wyrazenie)) return false;
         return Double.compare(this.oblicz(), ((Wyrazenie) obj).oblicz()) == 0;
     }
 }

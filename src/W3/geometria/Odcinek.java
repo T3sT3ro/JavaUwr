@@ -27,15 +27,15 @@ public class Odcinek extends Figura {
     }
 
     @Override
-    public void przesuń(Wektor v) {
-        A.przesuń(v);
-        B.przesuń(v);
+    public void przesun(Wektor v) {
+        A.przesun(v);
+        B.przesun(v);
     }
 
     @Override
-    public void obruć(Punkt p, double kąt) {
-        A.obruć(p, kąt);
-        B.obruć(p, kąt);
+    public void obroc(Punkt p, double kat) {
+        A.obroc(p, kat);
+        B.obroc(p, kat);
     }
 
     @Override

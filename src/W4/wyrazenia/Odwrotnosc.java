@@ -1,20 +1,26 @@
-package W4.wyrazenia.unary;
+package W4.wyrazenia;
 
-import W4.wyrazenia.Unary;
-import W4.wyrazenia.Wyrazenie;
-import org.jetbrains.annotations.NotNull;
 
+/**
+ * Operator odwrotnosci wyrazenia w (1/w)
+ */
 public class Odwrotnosc extends Unary {
 
-    public Odwrotnosc(@NotNull Wyrazenie w) {
+    public Odwrotnosc(Wyrazenie w) {
         super(w);
     }
 
+    /**
+     * @see Unary
+     */
     @Override
     public double oblicz() {
         return (1f) / super.w.oblicz();
     }
 
+    /**
+     * @see Unary
+     */
     @Override
     public String toString() {
         return "1/" + super.w.toStringFormat();

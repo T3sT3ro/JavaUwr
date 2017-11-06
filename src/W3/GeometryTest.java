@@ -109,7 +109,7 @@ public class GeometryTest {
     private static void objectsRotationTests() {
         try {
             Punkt p = new Punkt(r(), r());
-            p.obruć(r(), r(), g.nextInt());
+            p.obroc(r(), r(), g.nextInt());
         } catch (Exception e) {
             System.err.println(" FAILED: Rotation of point");
             e.printStackTrace();
@@ -120,7 +120,7 @@ public class GeometryTest {
                     r(), r(),
                     r(), r());
 
-            o.obruć(r(), r(), g.nextInt());
+            o.obroc(r(), r(), g.nextInt());
         } catch (Exception e) {
             System.err.println(" FAILED: Rotation of line segment");
             e.printStackTrace();
@@ -132,7 +132,7 @@ public class GeometryTest {
                     r(), r(),
                     r(), r());
 
-            t.obruć(r(), r(), g.nextInt());
+            t.obroc(r(), r(), g.nextInt());
         } catch (Exception e) {
             System.err.println(" FAILED: Rotation of triangle");
             e.printStackTrace();
@@ -172,7 +172,7 @@ public class GeometryTest {
     private static void objectsMoveTest() {
         try {
             Punkt p = new Punkt(r(), r());
-            p.przesuń(new Wektor(r(), r()));
+            p.przesun(new Wektor(r(), r()));
         } catch (Exception e) {
             System.err.println(" FAILED: Move test of Point failed");
             e.printStackTrace();
@@ -180,7 +180,7 @@ public class GeometryTest {
         }
         try {
             Odcinek o = new Odcinek(r(), r(), r(), r());
-            o.przesuń(new Wektor(r(), r()));
+            o.przesun(new Wektor(r(), r()));
         } catch (Exception e) {
             System.err.println(" FAILED: Move test of Line failed");
             e.printStackTrace();
@@ -188,7 +188,7 @@ public class GeometryTest {
         }
         try {
             Trojkat t = new Trojkat(r(), r(), r(), r(), r(), r());
-            t.przesuń(new Wektor(r(), r()));
+            t.przesun(new Wektor(r(), r()));
         } catch (Exception e) {
             System.err.println(" FAILED: Move test of Triangle failed");
             e.printStackTrace();
@@ -207,13 +207,13 @@ public class GeometryTest {
             }
             Punkt r = new Punkt(r(), r());
             for (int i = 0; i < 360; i++)
-                p2.obruć(r, Math.toRadians(1));
+                p2.obroc(r, Math.toRadians(1));
             if (!p2.equals(p))
                 System.err.println(" FAILED: rotation error for angle in degrees is too big");
 
             p2 = (Punkt) p.clone();
             for (int i = 0; i < 100; i++)
-                p2.obruć(r, Math.PI);
+                p2.obroc(r, Math.PI);
             if (!p2.equals(p))
                 System.err.println(" FAILED: rotation error for angle in radians is too big");
 
@@ -271,14 +271,14 @@ public class GeometryTest {
             }
             double dx = r(), dy = r();
             for (int i = 0; i < 100; i++) {
-                p2.przesuń(new Wektor(dx, dy));
-                p2.przesuń(Wektor.multiply(new Wektor(dx, dy), -1.0f));
+                p2.przesun(new Wektor(dx, dy));
+                p2.przesun(Wektor.multiply(new Wektor(dx, dy), -1.0f));
             }
             if (!p2.equals(p))
                 System.err.println(" FAILED: move error too big");
 
             p2 = (Punkt) p.clone();
-            p2.przesuń(new Wektor(1, 1));
+            p2.przesun(new Wektor(1, 1));
             if (!p2.equals(new Punkt(p.getX() + 1.0f, p.getY() + 1.0f)))
                 System.err.println(" FAILED: move doesn't work");
 
@@ -313,8 +313,8 @@ public class GeometryTest {
         try {
             Prosta p = new Prosta(r(), r(), r());
             Wektor w = new Wektor(r(), r());
-            Prosta p2 = Prosta.przesuń(p, w);
-            Prosta p3 = Prosta.przesuń(p2, Wektor.multiply(w, -1f));
+            Prosta p2 = Prosta.przesun(p, w);
+            Prosta p3 = Prosta.przesun(p2, Wektor.multiply(w, -1f));
             if (!p3.equals(p)) {
                 System.err.println(" FAILED: moving lines doesn't work");
             }

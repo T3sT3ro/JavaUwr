@@ -1,4 +1,4 @@
-### A collection of programs and help bash scripts for Java course at University of Wrocław.
+### A collection of programs and help bash scripts for Java course at University of Wroclaw.
 ###### author: Tooster
 ## Compiling and executing
 To compile and run a program:

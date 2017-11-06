@@ -1,20 +1,25 @@
-package W4.wyrazenia.unary;
+package W4.wyrazenia;
 
-import W4.wyrazenia.Unary;
-import W4.wyrazenia.Wyrazenie;
-import org.jetbrains.annotations.NotNull;
-
+/**
+ * Operator cosinusa kata w radianach
+ */
 public class Cosinus extends Unary {
 
-    public Cosinus(@NotNull Wyrazenie w) {
+    public Cosinus(Wyrazenie w) {
         super(w);
     }
 
+    /**
+     * @see Unary
+     */
     @Override
     public double oblicz() {
         return Math.cos(super.w.oblicz());
     }
 
+    /**
+     * @see Unary
+     */
     @Override
     public String toString() {
         return "cos(" + super.w.toString() + ")";

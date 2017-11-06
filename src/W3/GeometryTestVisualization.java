@@ -55,13 +55,13 @@ public class GeometryTestVisualization extends JPanel {
 
         try {
             Trojkat t = new Trojkat(4, 4, 0.1, -1.1, -3, -0.1);
-            t.przesuń(new Wektor(1, 5));
+            t.przesun(new Wektor(1, 5));
             Trojkat t2 = t.clone();
             t2.odbij(new Prosta(0, 1, 0));
             Trojkat t3 = t.clone();
             t3.odbij(new Prosta(1, 0, 3));
             Trojkat t4 = t.clone();
-            t4.obruć(-7, -7, Math.toRadians(120));
+            t4.obroc(-7, -7, Math.toRadians(120));
             figury.add(t);
             figury.add(t2);
             figury.add(t3);

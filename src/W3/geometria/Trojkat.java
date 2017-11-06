@@ -38,17 +38,17 @@ public class Trojkat extends Figura {
 
 
     @Override
-    public void przesuń(Wektor v) {
-        A.przesuń(v);
-        B.przesuń(v);
-        C.przesuń(v);
+    public void przesun(Wektor v) {
+        A.przesun(v);
+        B.przesun(v);
+        C.przesun(v);
     }
 
     @Override
-    public void obruć(Punkt p, double kąt) {
-        A.obruć(p, kąt);
-        B.obruć(p, kąt);
-        C.obruć(p, kąt);
+    public void obroc(Punkt p, double kat) {
+        A.obroc(p, kat);
+        B.obroc(p, kat);
+        C.obroc(p, kat);
     }
 
     @Override

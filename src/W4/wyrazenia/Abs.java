@@ -1,20 +1,26 @@
-package W4.wyrazenia.unary;
+package W4.wyrazenia;
 
-import W4.wyrazenia.Unary;
-import W4.wyrazenia.Wyrazenie;
-import org.jetbrains.annotations.NotNull;
 
+/**
+ * Operator wartosci bezwzglednej
+ */
 public class Abs extends Unary {
 
-    public Abs(@NotNull Wyrazenie w) {
+    public Abs(Wyrazenie w) {
         super(w);
     }
 
+    /**
+     * @see Unary
+     */
     @Override
     public double oblicz() {
         return Math.abs(super.w.oblicz());
     }
 
+    /**
+     * @see Unary
+     */
     @Override
     public String toString() {
         return "|" + super.w.toString() + "|";

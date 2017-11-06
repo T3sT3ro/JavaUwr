@@ -1,20 +1,26 @@
-package W4.wyrazenia.unary;
+package W4.wyrazenia;
 
 
-import W4.wyrazenia.Unary;
-import W4.wyrazenia.Wyrazenie;
-
+/**
+ * Operator zwracajacy arcus tangens
+ */
 public class Arctan extends Unary {
 
     public Arctan(Wyrazenie w) {
         super(w);
     }
 
+    /**
+     * @see Unary
+     */
     @Override
     public double oblicz() {
         return Math.atan(super.w.oblicz());
     }
 
+    /**
+     * @see Unary
+     */
     @Override
     public String toString() {
         return "atan(" + super.w.toString() + ")";

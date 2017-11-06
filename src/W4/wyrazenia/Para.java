@@ -1,31 +1,56 @@
 package W4.wyrazenia;
 
+/**
+ * Klasa reprezentujaca pary [klucz, wartosc]
+ */
 public class Para {
     public final String klucz;
-    private double wartość;
+    private double wartosc;
 
-    public Para(String klucz, double wartość) {
+    /**
+     * Konstruktor tworzacy nowa pare [klucz, wartosc]
+     *
+     * @param klucz
+     * @param wartosc
+     */
+    public Para(String klucz, double wartosc) {
         this.klucz = klucz;
-        this.wartość = wartość;
+        this.wartosc = wartosc;
     }
 
+    /**
+     * Zwraca wartosc skojarzona z kluczem
+     */
     public double getValue() {
-        return wartość;
+        return wartosc;
     }
 
-    public void setValue(double wartość) {
-        this.wartość = wartość;
+    /**
+     * ustawia wartosc skojarzona z kluczem
+     */
+    public void setValue(double wartosc) {
+        this.wartosc = wartosc;
     }
 
+    /**
+     * Zwraca tekst reprezentujacy pare ['klucz', wartosc]
+     */
     @Override
     public String toString() {
-        return "[ '" + klucz + "' , " + wartość + " ]";
+        return "[ '" + klucz + "', " + wartosc + " ]";
     }
 
+
+    /**
+     * Porownuje dwie pary na podstawie ich kluczy
+     *
+     * @param obj obiekt do porownania
+     * @return true jesli this i obj maja takie same klucze
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
-        if (obj == null | getClass() != obj.getClass()) return false;
+        if (obj == null || !(obj instanceof Para)) return false;
 
         Para p = (Para) obj;
         return klucz.equals(p.klucz);

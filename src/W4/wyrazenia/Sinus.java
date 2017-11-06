@@ -1,23 +1,26 @@
-package W4.wyrazenia.unary;
+package W4.wyrazenia;
 
-import W4.wyrazenia.Unary;
-import W4.wyrazenia.Wyrazenie;
-import org.jetbrains.annotations.NotNull;
 
 /**
- * Accepts angle in radians and returns sinus
+ * Operator sinusa kata w radianach
  */
 public class Sinus extends Unary {
 
-    public Sinus(@NotNull Wyrazenie w) {
+    public Sinus(Wyrazenie w) {
         super(w);
     }
 
+    /**
+     * @see Unary
+     */
     @Override
     public double oblicz() {
         return Math.sin(super.w.oblicz());
     }
 
+    /**
+     * @see Unary
+     */
     @Override
     public String toString() {
         return "sin(" + super.w.toString() + ")";

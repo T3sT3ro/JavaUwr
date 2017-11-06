@@ -1,9 +1,9 @@
-package W4.wyrazenia.binary;
+package W4.wyrazenia;
 
-import W4.wyrazenia.Binary;
-import W4.wyrazenia.Wyrazenie;
-import org.jetbrains.annotations.NotNull;
 
+/**
+ * Operator logarytmu
+ */
 public class Logarytm extends Binary {
     /**
      * Logarytm o podstawie w z x
@@ -11,17 +11,23 @@ public class Logarytm extends Binary {
      * @param w podstawa logarytmu
      * @param x liczba logarytmowana
      */
-    public Logarytm(@NotNull Wyrazenie w, @NotNull Wyrazenie x) {
+    public Logarytm(Wyrazenie w, Wyrazenie x) {
         super(w, x);
     }
 
+    /**
+     * @see Binary
+     */
     @Override
     public double oblicz() {
         return Math.log(super.x.oblicz()) / Math.log(super.w.oblicz());
     }
 
+    /**
+     * @see Binary
+     */
     @Override
     public String toString() {
-        return "log(" + w.toString() + "," + x.toString() + ")";
+        return "log(" + super.w.toString() + "," + super.x.toString() + ")";
     }
 }

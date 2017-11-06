@@ -54,24 +54,24 @@ public class Punkt extends Figura implements Cloneable {
     }
 
     @Override
-    public void przesuń(Wektor v) {
+    public void przesun(Wektor v) {
         x += v.dx;
         y += v.dy;
     }
 
     /**
-     * Rotate this point <kąt> degrees in radians </kąt>around point p
+     * Rotate this point <kat> degrees in radians </kat>around point p
      *
      * @param p   origin of rotation
-     * @param kąt degree in radians
+     * @param kat degree in radians
      */
     @Override
-    public void obruć(Punkt p, double kąt) {
+    public void obroc(Punkt p, double kat) {
         x -= p.x;
         y -= p.y;
         // multiplication with rotation matrix
-        double _x = x * Math.cos(kąt) - y * Math.sin(kąt);
-        double _y = x * Math.sin(kąt) + y * Math.cos(kąt);
+        double _x = x * Math.cos(kat) - y * Math.sin(kat);
+        double _y = x * Math.sin(kat) + y * Math.cos(kat);
         x = _x + p.x;
         y = _y + p.y;
     }
@@ -80,7 +80,7 @@ public class Punkt extends Figura implements Cloneable {
     public void odbij(Prosta p) {
         Punkt intersection = Prosta.getIntersection(p, new Prosta(-p.b, p.a, p.b * x - p.a * y));
         Punkt p2 = new Punkt(x, y);
-        p2.przesuń(Wektor.multiply(Wektor.between(p2, intersection), 2.0));
+        p2.przesun(Wektor.multiply(Wektor.between(p2, intersection), 2.0));
         this.x = p2.getX();
         this.y = p2.getY();
     }
