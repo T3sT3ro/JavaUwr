@@ -5,3 +5,4 @@
  * @author Tooster
  * @version 1.0
  */
+package W4.wyrazenia;
