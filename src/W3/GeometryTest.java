@@ -21,10 +21,6 @@ public class GeometryTest {
         System.out.println("# Running tests...");
 
 
-        /*
-         * TODO JUnit tests
-         */
-
         objectsInitializationCreationTest();
 
         objectsRotationTests();
