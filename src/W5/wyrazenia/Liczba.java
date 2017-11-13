@@ -2,6 +2,9 @@ package W5.wyrazenia;
 
 import W5.wyrazenia.wyjatki.WyjatekONP;
 
+/**
+ * Klasa reprezentujaca stala
+ */
 public class Liczba extends Operand {
 
     private final double val;
@@ -11,6 +14,9 @@ public class Liczba extends Operand {
         sprawdz(val);
     }
 
+    /**
+     * @see Obliczalny
+     */
     @Override
     public double obliczWartosc() throws WyjatekONP {
         return val;

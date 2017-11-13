@@ -10,6 +10,10 @@ public class Div extends Binary {
         return "/";
     }
 
+    /**
+     * @return
+     * @throws WyjatekONP Jesli dzielenie przez zero, zwroc wyjatek
+     */
     @Override
     public double obliczWartosc() throws WyjatekONP {
         if (Double.compare(arg2, 0D) == 0 || Double.compare(arg2, -0D) == 0)

@@ -6,10 +6,22 @@ import W5.narzedzia.wyjatki.WyjatekKontenera;
 import W5.wyrazenia.wyjatki.ONP_NieznanySymbol;
 import W5.wyrazenia.wyjatki.WyjatekONP;
 
+/**
+ * Klasa zarzadzajaca zmiennymi w wyrazeniach
+ */
 public class Zmienna extends Operand {
 
+    /**
+     * statyczna lista par zmiennych typu Para{String, Double}
+     */
     private static final Lista<Para<String, Double>> globals;
+    /**
+     * flaga mowiaca, ze wystapila zmienna ktora nalezy przypisac
+     */
     public static boolean UNASIGNED_FLAG = false;
+    /**
+     * pole przechowujace nazwe zmiennej ktora trzeba przypisac
+     */
     public static String PENDING_NAME = null;
 
     static {
@@ -22,10 +34,23 @@ public class Zmienna extends Operand {
         this.name = name;
     }
 
+    /**
+     * Zwraca liste zmiennych globalnych
+     *
+     * @return lista zmiennych globalnych typu Para{String, Double}
+     */
     public static Lista<Para<String, Double>> getGlobals() {
         return globals;
     }
 
+    /**
+     * Ustawa nowa, albo istniejaca zmienna na wartosc val
+     *
+     * @param key nazwa zmiennej do ustawienia
+     * @param val nowa wartosc
+     * @throws WyjatekKontenera jesli wystapil wyjatek kontenera ze zmiennymi
+     * @throws WyjatekONP       jesli wartosc jest niepoprawna
+     */
     public static void ustaw(String key, Double val) throws WyjatekKontenera, WyjatekONP {
         sprawdz(val);
         Para<String, Double> found = globals.find(new Para<>(key, val));
@@ -44,6 +69,14 @@ public class Zmienna extends Operand {
         return name;
     }
 
+    /**
+     * Oblicza i zwraca wartosc zmiennej.
+     *
+     * @return Jesli byla zainicjalizowana zwraca wartosc tej zmiennej,
+     * jesli nie ustawia odpowiednie flagi i zwraca sztuczny element dummy.
+     * @throws WyjatekONP       Jesli zmienna jest nieznana
+     * @throws WyjatekKontenera jesli jest jakis problem z kontenerem
+     */
     @Override
     public double obliczWartosc() throws WyjatekONP, WyjatekKontenera {
         Para<String, Double> found = globals.find(new Para<>(name, 0D));

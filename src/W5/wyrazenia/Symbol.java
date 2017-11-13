@@ -5,13 +5,28 @@ import W5.wyrazenia.wyjatki.ONP_BladArgumentu;
 import W5.wyrazenia.wyjatki.ONP_NieznanySymbol;
 import W5.wyrazenia.wyjatki.WyjatekONP;
 
+/**
+ * Klasa abstrakcyjan reprezentujaca symbol
+ */
 public abstract class Symbol implements Obliczalny {
 
+    /**
+     * sprawdza czy podany argument jest poprawny, czyli czy nie jest NaN lub +/-Infinity
+     *
+     * @param arg
+     * @throws WyjatekONP jesli argument jest NaN lub +/-Infinity
+     */
     public static void sprawdz(double arg) throws WyjatekONP {
         if (Double.isNaN(arg) || Double.isInfinite(arg))
             throw new ONP_BladArgumentu("argument poza zakresem typu double");
     }
 
+    /**
+     * Rozpoznaje i zwraca nowa funkcje z podanego napisu
+     * @param token
+     * @return
+     * @throws WyjatekONP jesli podano nieznany symbol
+     */
     public static Symbol getSymbol(String token) throws WyjatekONP {
         switch (token) {
             case "=":

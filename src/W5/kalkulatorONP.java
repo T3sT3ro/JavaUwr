@@ -12,6 +12,12 @@ import java.util.logging.FileHandler;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
+/**
+ * Klasa interaktywnego kalkulatora ONP
+ * dostepne funkcje:
+ * = + - * / ^ min max log pow abs sgn floor ceil frac sin cos atan acot ln exp PI E
+ * oraz obsluga zmiennych i stalych
+ */
 public class kalkulatorONP {
 
     private static final Logger logger = Logger.getLogger(kalkulatorONP.class.getName());

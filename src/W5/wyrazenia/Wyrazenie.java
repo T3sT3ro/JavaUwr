@@ -29,6 +29,9 @@ public class Wyrazenie implements Obliczalny {
 
         String[] tokens = wyrazenie.split(" ");
 
+        Zmienna.UNASIGNED_FLAG = false;
+        Zmienna.PENDING_NAME = null;
+
         for (String token : tokens) {
             try {
                 symbole.add(Symbol.getSymbol(token));
@@ -75,8 +78,6 @@ public class Wyrazenie implements Obliczalny {
                 }
                 try {
                     if (Zmienna.UNASIGNED_FLAG) { // jesli mamy oczekujaca na przypisanie zmienna
-                        Zmienna.UNASIGNED_FLAG = false;
-                        Zmienna.PENDING_NAME = null;
                         throw new ONP_BledneWyrazenie("zmienna niezainicjalizowana");
                     }
                     wyniki.add(x.obliczWartosc());
@@ -90,13 +91,8 @@ public class Wyrazenie implements Obliczalny {
                 }
             }
             if (wyniki.size() > 1 || symbole.size() > 0 || Zmienna.UNASIGNED_FLAG) {
-                if (Zmienna.UNASIGNED_FLAG) {
-                    Zmienna.UNASIGNED_FLAG = false;
-                    Zmienna.PENDING_NAME = null;
+                if (Zmienna.UNASIGNED_FLAG)
                     throw new ONP_BledneWyrazenie("zmienna niezainicjalizowana");
-                }
-                Zmienna.UNASIGNED_FLAG = false;
-                Zmienna.PENDING_NAME = null;
                 throw new ONP_BledneWyrazenie("wyrazenie jest zle sformulowane");
             }
             return wyniki.pop();

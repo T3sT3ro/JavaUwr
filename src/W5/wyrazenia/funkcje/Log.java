@@ -10,6 +10,10 @@ public class Log extends Binary {
         return "log";
     }
 
+    /**
+     * @return
+     * @throws WyjatekONP jesli liczba logarytmowana <0 lub podstawa <0 albo =1
+     */
     @Override
     public double obliczWartosc() throws WyjatekONP {
         if (Double.compare(arg2, 0D) < 0)

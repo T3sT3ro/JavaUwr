@@ -4,6 +4,11 @@ import W5.wyrazenia.Funkcja;
 import W5.wyrazenia.wyjatki.ONP_BladArgumentu;
 import W5.wyrazenia.wyjatki.WyjatekONP;
 
+/**
+ * Klasa abstrakcyjna reprezentujaca operator dwuargumentowy
+ *
+ * @see W5.wyrazenia.Funkcyjny
+ */
 public abstract class Binary extends Funkcja {
 
     protected double arg1;

@@ -4,12 +4,21 @@ import W5.narzedzia.wyjatki.Kontener_NieistniejacyElement;
 import W5.narzedzia.wyjatki.Kontener_PustyKontener;
 import W5.narzedzia.wyjatki.WyjatekKontenera;
 
+/**
+ * Lista dwukierunkowa
+ *
+ * @param <T>
+ * @see AbstrakcyjnyKontener
+ */
 public class Lista<T> extends AbstrakcyjnyKontener<T> {
 
     Node begin;
     Node end;
     private int size = 0;
 
+    /**
+     * Tworzy pusta liste o size=0
+     */
     public Lista() {
         begin = new Node();
         end = new Node();
@@ -31,6 +40,11 @@ public class Lista<T> extends AbstrakcyjnyKontener<T> {
         return size == 0;
     }
 
+    /**
+     * Dodaje element na poczatku listy
+     * @param val element do dodania
+     * @throws WyjatekKontenera
+     */
     public void addFirst(T val) throws WyjatekKontenera {
         if (val == null)
             throw new IllegalArgumentException("cannot insert null to list");
@@ -43,6 +57,11 @@ public class Lista<T> extends AbstrakcyjnyKontener<T> {
 
     }
 
+    /**
+     * Dodaje element na koncu listy
+     * @param val element do dodania
+     * @throws WyjatekKontenera
+     */
     public void addLast(T val) throws WyjatekKontenera {
         if (val == null)
             throw new IllegalArgumentException("cannot insert null into the list");
@@ -54,18 +73,32 @@ public class Lista<T> extends AbstrakcyjnyKontener<T> {
         size++;
     }
 
+    /**
+     * Zwraca pierwszy element listy
+     * @return begin.next
+     * @throws WyjatekKontenera
+     */
     public T getFirst() throws WyjatekKontenera {
         if (this.isEmpty())
             throw new Kontener_PustyKontener("kontener jest pusty");
         return begin.next.val;
     }
 
+    /**
+     * Zwraca ostatni element listy
+     * @return end.prev
+     * @throws WyjatekKontenera
+     */
     public T getLast() throws WyjatekKontenera {
         if (this.isEmpty())
             throw new Kontener_PustyKontener("kontener jest pusty");
         return end.prev.val;
     }
 
+    /**
+     * Usuwa ostatni element z listy
+     * @throws WyjatekKontenera Jesli kontener jest pusty
+     */
     public void removeFirst() throws WyjatekKontenera {
         if (this.isEmpty())
             throw new Kontener_PustyKontener("kontener jest pusty");
@@ -75,6 +108,10 @@ public class Lista<T> extends AbstrakcyjnyKontener<T> {
         size--;
     }
 
+    /**
+     * Usuwa pierwszy element listy
+     * @throws WyjatekKontenera Jesli kontener jest pusty
+     */
     public void removeLast() throws WyjatekKontenera {
         if (this.isEmpty())
             throw new Kontener_PustyKontener("kontener jest pusty");
@@ -83,6 +120,11 @@ public class Lista<T> extends AbstrakcyjnyKontener<T> {
         size--;
     }
 
+    /**
+     * Wyszukuje elementu ktorego equals() z elementem podanym jest rowne i usuwa go z kontenera
+     * @param element element do usuniecia
+     * @throws WyjatekKontenera Jesli kontener jest pusty lub element nie istnieje
+     */
     public void remove(T element) throws WyjatekKontenera {
         Node found = findNode(element);
         if (found == null)
@@ -93,6 +135,12 @@ public class Lista<T> extends AbstrakcyjnyKontener<T> {
         found.next.prev = found.prev;
     }
 
+    /**
+     * Zwraca obiekt z kontenera ktorego equals() jest rowne z podanym
+     * @param element
+     * @return element lub null jesli element nie istnieje
+     * @throws WyjatekKontenera jesli nie mozna wyszukac elementu
+     */
     public T find(T element) throws WyjatekKontenera {
         if (element == null) throw new WyjatekKontenera("nie mozna wyszukac elementu null");
         Node current = begin.next;
@@ -106,12 +154,20 @@ public class Lista<T> extends AbstrakcyjnyKontener<T> {
         return null;
     }
 
+    /**
+     * Usuwa wszytskie elementy z listy
+     */
     public void clear() {
         begin.next = end;
         end.prev = begin;
         size = 0;
     }
 
+    /**
+     * Zwraca obiekt Node ktorego val jest rowna podanej
+     * @param element
+     * @return Node z val.equals(element)
+     */
     private Node findNode(T element) {
         if (element == null)
             return null;
@@ -124,6 +180,9 @@ public class Lista<T> extends AbstrakcyjnyKontener<T> {
         return null;
     }
 
+    /**
+     * Klasa wewnetrzenego wezla listy dwukierunkowej przechowujaca wartosc i wskazniki na sasiednie elementy
+     */
     private class Node {
         Node prev;
         Node next;

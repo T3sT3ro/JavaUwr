@@ -10,6 +10,10 @@ public class Ln extends Unary {
         return "ln";
     }
 
+    /**
+     * @return
+     * @throws WyjatekONP Jesli liczba logarytmowana < 0
+     */
     @Override
     public double obliczWartosc() throws WyjatekONP {
         if (Double.compare(arg, 0D) < 0)
