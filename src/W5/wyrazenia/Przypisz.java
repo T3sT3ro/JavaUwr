@@ -30,9 +30,10 @@ public class Przypisz extends Symbol {
      * Ustawia prawy operand przypisania (wartosc przypisywana)
      *
      * @param rhs Double, wartosc
-     * @throws ONP_BladArgumentu
+     * @throws ONP_BladArgumentu tak jak funkcja sprawdz {@link Symbol}
      */
-    public void setRhs(double rhs) throws ONP_BladArgumentu {
+    public void setRhs(double rhs) throws WyjatekONP {
+        sprawdz(rhs);
         this.rhs = rhs;
     }
 
@@ -45,8 +46,8 @@ public class Przypisz extends Symbol {
      * Wywoluje dodanie nowej zmiennej lub zmiane istniejacej i zwraca jej nowa wartosc
      * @see Zmienna
      * @return nowa wartosc zmiennej w lhs
-     * @throws WyjatekONP
-     * @throws WyjatekKontenera
+     * @throws WyjatekONP jak w Zmienna.ustaw {@link Zmienna}
+     * @throws WyjatekKontenera jak w Zmienna.ustaw {@link Zmienna}
      */
     @Override
     public double obliczWartosc() throws WyjatekONP, WyjatekKontenera {

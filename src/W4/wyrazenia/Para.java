@@ -10,8 +10,8 @@ public class Para {
     /**
      * Konstruktor tworzacy nowa pare [klucz, wartosc]
      *
-     * @param klucz
-     * @param wartosc
+     * @param klucz   klucz
+     * @param wartosc wartosc
      */
     public Para(String klucz, double wartosc) {
         this.klucz = klucz;
@@ -20,6 +20,8 @@ public class Para {
 
     /**
      * Zwraca wartosc skojarzona z kluczem
+     *
+     * @return wartosc
      */
     public double getValue() {
         return wartosc;
@@ -27,6 +29,8 @@ public class Para {
 
     /**
      * ustawia wartosc skojarzona z kluczem
+     *
+     * @param wartosc nowa wartosc
      */
     public void setValue(double wartosc) {
         this.wartosc = wartosc;

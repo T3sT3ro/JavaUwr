@@ -21,8 +21,8 @@ public interface Funkcyjny extends Obliczalny {
 
     /**
      * Dodaje argumenty do funkcji
-     * @param arg
-     * @throws WyjatekONP
+     * @param arg wartosc typu double
+     * @throws WyjatekONP jesli nie udalo sie dodac argumentu
      */
     void dodajArgument(double arg) throws WyjatekONP;
 }

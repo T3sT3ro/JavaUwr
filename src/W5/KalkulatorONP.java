@@ -7,10 +7,9 @@ import W5.wyrazenia.Zmienna;
 import W5.wyrazenia.wyjatki.WyjatekONP;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.Scanner;
-import java.util.logging.FileHandler;
-import java.util.logging.Logger;
-import java.util.logging.SimpleFormatter;
+import java.util.logging.*;
 
 /**
  * Klasa interaktywnego kalkulatora ONP
@@ -18,17 +17,29 @@ import java.util.logging.SimpleFormatter;
  * = + - * / ^ min max log pow abs sgn floor ceil frac sin cos atan acot ln exp PI E
  * oraz obsluga zmiennych i stalych
  */
-public class kalkulatorONP {
+public class KalkulatorONP {
 
-    private static final Logger logger = Logger.getLogger(kalkulatorONP.class.getName());
+    private static final Logger logger = Logger.getLogger(KalkulatorONP.class.getName());
     private static final Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
 
         try {
-            FileHandler handler = new FileHandler("calc.log", true);
-            handler.setFormatter(new SimpleFormatter());
-            logger.addHandler(handler);
+            Handler fileHandler = new FileHandler("calc.log", true);
+            fileHandler.setFormatter(new SimpleFormatter() {
+                private static final String format = "[%1$tF %1$tT] [%2$-7s] %3$s %n";
+
+                @Override
+                public synchronized String format(LogRecord lr) {
+                    return String.format(format,
+                            new Date(lr.getMillis()),
+                            lr.getLevel().getLocalizedName(),
+                            lr.getMessage()
+                    );
+                }
+            });
+            logger.addHandler(fileHandler);
+
         } catch (IOException e) {
             e.printStackTrace();
         }

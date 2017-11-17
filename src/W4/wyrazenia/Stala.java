@@ -10,7 +10,7 @@ public class Stala extends Wyrazenie {
     /**
      * Inicjuje stala
      *
-     * @param value
+     * @param value wartosc dla stalej
      */
     public Stala(double value) {
         this.value = value;

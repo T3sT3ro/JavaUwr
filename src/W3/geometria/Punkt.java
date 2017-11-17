@@ -4,6 +4,7 @@ package W3.geometria;
  * Class representing a point in 2D euclidean space
  * WARNING! precision is set to the value of EPSILON
  */
+@SuppressWarnings("FinalStaticMethod")
 public class Punkt extends Figura implements Cloneable {
     /**
      * We cannot compare two doubles in a==b way
@@ -47,6 +48,7 @@ public class Punkt extends Figura implements Cloneable {
     /**
      * Compare points and return true if p has x greater, or y greater when x is equal than 'this'
      *
+     * @param p point to campare
      * @return true if this is less than p
      */
     public boolean lessThan(Punkt p) {
@@ -60,7 +62,7 @@ public class Punkt extends Figura implements Cloneable {
     }
 
     /**
-     * Rotate this point <kat> degrees in radians </kat>around point p
+     * Rotate this point 'kat' degrees in radians around point p
      *
      * @param p   origin of rotation
      * @param kat degree in radians

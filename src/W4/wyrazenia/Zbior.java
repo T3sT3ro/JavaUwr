@@ -40,6 +40,8 @@ public class Zbior {
 
     /**
      * Wyszukuje pare o kluczu kl
+     *
+     * @param kl klucz
      * @return Para p o kluczu kl, null jesli para nie istnieje w zbiorze
      */
     public Para szukaj(String kl) {
@@ -53,6 +55,8 @@ public class Zbior {
 
     /**
      * Wstawia nowa pare p do zbioru, jesli ta juz istnieje, zglasza wyjatek.
+     *
+     * @param p para
      */
     public void wstaw(Para p) throws IllegalArgumentException {
         if (szukaj(p.klucz) != null)
@@ -63,6 +67,9 @@ public class Zbior {
 
     /**
      * Zwraca wartosc elementu o kluczu kl, zglasza wyjatek jesli nie ma takiego elementu
+     *
+     * @param kl klucz
+     * @return para o podaym kluczu
      */
     public double czytaj(String kl) throws IllegalArgumentException {
         Para found = szukaj(kl);
@@ -73,6 +80,9 @@ public class Zbior {
 
     /**
      * Jesli para istnieje aktualizuje ja, jesli nie, wstawia do zbioru
+     *
+     * @param p para
+     * @throws IllegalArgumentException jesli Para jest nieprawidlowa
      */
     public void ustal(Para p) throws IllegalArgumentException {
         Para found = szukaj(p.klucz);
@@ -84,6 +94,8 @@ public class Zbior {
 
     /**
      * Podaje ile jest par w zbiorze
+     *
+     * @return size
      */
     public int ile() {
         return size;

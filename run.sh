@@ -1,25 +1,40 @@
 #!/bin/bash
 . project.cfg
-if [[ $1 != "-p" ]]; then
+
+# check if src variable is set via parameter expansion
+if [[ -z ${src+null} ]]; then
+    echo "Variable 'src' in project.cfg not set!"
+    exit 1
+fi
+# check if out variable is set via parameter expansion
+if [[ -z ${out+null} ]]; then
+    echo "Variable 'out' in project.cfg not set!"
+    exit 1
+fi
+
+# if no option is specified
+if [[ $# -eq 0 ]]; then
 	echo "Executing newest version of the project."
-	echo "If you want a specific one, use ./run.sh -p <name> <arguments...>."
-	#TODO >3 look >2 .run.cfg handling to customize compilation process (adding custom libraries etc.)
-	java -cp out "$newestMainClass" ${@:1}
+	echo "If you want a specific one, use ./run.sh <name> <arguments...>."
+	#TODO look >1
+	# passess argument list to program starting from arg1
+	java -cp $out "$newestMainClass" ${@:1}
+	if [[ $? -eq 0 ]]; then exit 1; fi
+# run certain project passed
 elif [[ $1 == "-p" ]]; then
-	dir="$2"
-	if [[ -d out/$dir ]]; then
-		#TODO >4 look >3
-		#if [ -e "$dir/.compile.cfg" ]; then
-			#echo "Compiling $dir with custom compile.sh"
-			#javac -d out -sourcepath $dir $(find $dir -name "*.java")
-		#else
-            eval "main=$dir.\$$dir"
-			echo "Executing $main with default settings."
-			java -cp out "$main" ${@:3}
-		#fi
+	module="$2"
+	if [[ -d $out/$module ]]; then
+        #substitutes with variable with name $module from project.cfg
+        eval "main=$module.\$$module"
+        echo "Executing $main with default settings."
+        java -cp $out "$main" ${@:3}
+        if [[ $? -eq 0 ]]; then exit 1; fi
 	else
-		echo "Directory $dir not found in out/ - maybe not compiled?"
+		echo "Directory $module not found in directory $out"
+		./compile.sh $module
+		exit 1;
 	fi
 else
-    echo "Wrong command. Use ./run.sh <arguments...> to run the newest version of project."
+    echo "Wrong command. Use ./run.sh [-p <moduleName>] [arguments...]"
+    exit 1;
 fi

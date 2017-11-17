@@ -7,6 +7,8 @@ package W4.wyrazenia;
 public class Modulo extends Binary {
     /**
      * Reszta z dzielenia liczby w przez x
+     * @param w first argument
+     * @param x second argument
      */
     public Modulo(Wyrazenie w, Wyrazenie x) {
         super(w, x);

@@ -2,6 +2,9 @@ package W5.wyrazenia.funkcje;
 
 import W5.wyrazenia.wyjatki.WyjatekONP;
 
+/**
+ * Arcus tangens
+ */
 public class Atan extends Unary {
 
     @Override

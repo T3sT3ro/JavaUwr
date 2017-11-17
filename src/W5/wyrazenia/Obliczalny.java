@@ -11,8 +11,8 @@ public interface Obliczalny {
      * Zwraca wartosc obliczonego wyrazenia na podstawie podanych argumentow
      *
      * @return double wynik
-     * @throws WyjatekONP
-     * @throws WyjatekKontenera
+     * @throws WyjatekONP jesli obliczenie zglasza wyjatek obliczania wartosci
+     * @throws WyjatekKontenera obliczenie zglasza wyjatek kontenera
      */
     double obliczWartosc() throws WyjatekONP, WyjatekKontenera;
 }

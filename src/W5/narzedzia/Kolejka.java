@@ -5,7 +5,7 @@ import W5.narzedzia.wyjatki.WyjatekKontenera;
 /**
  * Kolejka zaimplementowana na Liscie dwukierunkowej
  *
- * @param <T>
+ * @param <T> typ obiektow
  * @see Lista
  */
 public class Kolejka<T> extends AbstrakcyjnyKontener<T> {
@@ -19,7 +19,7 @@ public class Kolejka<T> extends AbstrakcyjnyKontener<T> {
     /**
      * Dodaje na koncu kolejki obiekt val
      * @param val obiekt do dodania
-     * @throws WyjatekKontenera
+     * @throws WyjatekKontenera {@link Lista}
      */
     public void add(T val) throws WyjatekKontenera {
         list.addLast(val);
@@ -27,8 +27,8 @@ public class Kolejka<T> extends AbstrakcyjnyKontener<T> {
 
     /**
      * Zwraca element na poczatku kolejki
-     * @return
-     * @throws WyjatekKontenera
+     * @return T begin.next
+     * @throws WyjatekKontenera {@link Lista}
      */
     public T get() throws WyjatekKontenera {
         return list.getFirst();
@@ -36,16 +36,16 @@ public class Kolejka<T> extends AbstrakcyjnyKontener<T> {
 
     /**
      * Usuwa element z poczatku kolejki
-     * @throws WyjatekKontenera
+     * @throws WyjatekKontenera {@link Lista}
      */
     public void remove() throws WyjatekKontenera {
         list.removeFirst();
     }
 
     /**
-     * Usuwa element z poczatku kolejki i zwraca go
-     * @return
-     * @throws WyjatekKontenera
+     * Usuwa element z poczatku kolejki i zwraca go - inaczej get() i remove()
+     * @return to co get() i remove()
+     * @throws WyjatekKontenera {@link Lista}
      */
     public T pop() throws WyjatekKontenera {
         T ret = this.get();

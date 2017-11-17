@@ -12,6 +12,9 @@ import W5.wyrazenia.wyjatki.ONP_BledneWyrazenie;
 import W5.wyrazenia.wyjatki.ONP_PustyStos;
 import W5.wyrazenia.wyjatki.WyjatekONP;
 
+/**
+ * Wyrazenie ONP
+ */
 public class Wyrazenie implements Obliczalny {
     final String wyrazenie;
 

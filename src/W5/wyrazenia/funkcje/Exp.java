@@ -2,6 +2,9 @@ package W5.wyrazenia.funkcje;
 
 import W5.wyrazenia.wyjatki.WyjatekONP;
 
+/**
+ * Stala e Eulera podniesiona do potegi
+ */
 public class Exp extends Unary {
 
     @Override

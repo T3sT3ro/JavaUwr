@@ -37,11 +37,11 @@ public class Wektor {
     }
 
     /**
-     * Returns vector a->b
+     * Returns vector a-&gt;b
      *
      * @param a starting point
      * @param b ending point
-     * @return vector a->b
+     * @return vector a-&gt;b
      */
     public static Wektor between(Punkt a, Punkt b) {
         return new Wektor(b.getX() - a.getX(), b.getY() - a.getY());

@@ -43,11 +43,13 @@ public abstract class Wyrazenie {
 
     /**
      * Oblicza wynik wyrazenia typu double
+     * @return wynik wyrazenia
      */
     public abstract double oblicz();
 
     /**
      * Zwraca napis reprezentujacy wyrazenie w nawiasach jesli jest to potrzebne
+     * @return wyrazenie w nawiasach jesli wymagane
      */
     protected String toStringFormat() {
         if (
@@ -66,9 +68,6 @@ public abstract class Wyrazenie {
         return "(" + this.toString() + ")";
     }
 
-    /**
-     * Zwraca napis reprezentujacy wyrazenie
-     */
     public abstract String toString();
 
     /**

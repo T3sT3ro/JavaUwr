@@ -2,6 +2,9 @@ package W5.wyrazenia.funkcje;
 
 import W5.wyrazenia.wyjatki.WyjatekONP;
 
+/**
+ * Czesc ulamkowa
+ */
 public class Frac extends Unary {
 
     @Override

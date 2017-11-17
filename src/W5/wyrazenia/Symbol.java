@@ -13,7 +13,7 @@ public abstract class Symbol implements Obliczalny {
     /**
      * sprawdza czy podany argument jest poprawny, czyli czy nie jest NaN lub +/-Infinity
      *
-     * @param arg
+     * @param arg wartosc do sprawdzenia
      * @throws WyjatekONP jesli argument jest NaN lub +/-Infinity
      */
     public static void sprawdz(double arg) throws WyjatekONP {
@@ -23,8 +23,8 @@ public abstract class Symbol implements Obliczalny {
 
     /**
      * Rozpoznaje i zwraca nowa funkcje z podanego napisu
-     * @param token
-     * @return
+     * @param token napis do przetworzenia na obiekt
+     * @return nowy obiekt rownoznaczny z tokenem
      * @throws WyjatekONP jesli podano nieznany symbol
      */
     public static Symbol getSymbol(String token) throws WyjatekONP {

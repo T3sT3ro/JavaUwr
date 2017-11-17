@@ -17,15 +17,15 @@ public class Para<K, V> {
 
     @Override
     public String toString() {
-        return "['" +
+        return "[" +
                 key +
-                "', " + value +
+                ", " + value +
                 ']';
     }
 
     /**
      * Jesli obiekty maja takie same klucze, zwraca true
-     * @param obj
+     * @param obj obiekt do porownania
      * @return true jestli obj.klucz.equals(this.klucz)
      */
     @Override
@@ -35,7 +35,7 @@ public class Para<K, V> {
 
     /**
      * Zwraca wartosc
-     * @return
+     * @return V.value
      */
     public V getValue() {
         return value;
@@ -43,7 +43,7 @@ public class Para<K, V> {
 
     /**
      * Ustawia wartosc
-     * @param value
+     * @param value nowa wartosc
      */
     public void setValue(V value) {
         this.value = value;

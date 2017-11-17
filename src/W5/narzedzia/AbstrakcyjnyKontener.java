@@ -16,7 +16,7 @@ public abstract class AbstrakcyjnyKontener<T> {
 
     /**
      * Sprawdza czy kontener jest pusty
-     * @return true jesli size > 0
+     * @return true jesli size {@literal <} 0
      */
     public abstract boolean isEmpty();
 }

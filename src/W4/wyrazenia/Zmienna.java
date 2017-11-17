@@ -17,7 +17,7 @@ public class Zmienna extends Wyrazenie {
     /**
      * Tworzy nowa zmienna o nazwie name, zglasza wyjatek jesli nazwa jest nieprawidlowa.
      *
-     * @param name
+     * @param name nazwa zmiennej
      */
     public Zmienna(String name) {
         if (name.trim().length() == 0)
@@ -27,24 +27,22 @@ public class Zmienna extends Wyrazenie {
 
     /**
      * Dodaje nowa zmienna lub przypisuje istniejacej nowa wartosc
+     * @param key klucz
+     * @param val wartosc
      */
     public static void set(String key, double val) {
         zmienne.ustal(new Para(key, val));
     }
 
     /**
-     * Zwraca wartosc zmiennej
-     *
-     * @return
+     * Oblicza wartosc zmiennej
+     * @return zwraca wartosc zmiennej
      */
     @Override
     public double oblicz() {
         return zmienne.czytaj(zmienna);
     }
 
-    /**
-     * Zwraca tekst reprezentujacy wartosc zmiennej
-     */
     @Override
     public String toString() {
         return zmienna;

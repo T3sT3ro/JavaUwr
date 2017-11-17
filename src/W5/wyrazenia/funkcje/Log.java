@@ -3,6 +3,9 @@ package W5.wyrazenia.funkcje;
 import W5.wyrazenia.wyjatki.ONP_BladArgumentu;
 import W5.wyrazenia.wyjatki.WyjatekONP;
 
+/**
+ * Logarytm przy danej podstawie
+ */
 public class Log extends Binary {
 
     @Override
@@ -11,8 +14,8 @@ public class Log extends Binary {
     }
 
     /**
-     * @return
-     * @throws WyjatekONP jesli liczba logarytmowana <0 lub podstawa <0 albo =1
+     * @return log base arg1 of arg2
+     * @throws WyjatekONP jesli liczba logarytmowana  lub podstawa mniejsza od 0 albo rowna 1
      */
     @Override
     public double obliczWartosc() throws WyjatekONP {

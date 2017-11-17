@@ -74,37 +74,31 @@ public class GeometryTestVisualization extends JPanel {
     }
 
     public static void visualization() {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                JFrame frame = new JFrame();
+        SwingUtilities.invokeLater(() -> {
+            JFrame frame = new JFrame();
 
-                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                frame.getContentPane().add(new GeometryTestVisualization());
-                frame.setResizable(false);
-                frame.setSize(width + 100, height + 100);
-                frame.pack();
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.getContentPane().add(new GeometryTestVisualization());
+            frame.setResizable(false);
+            frame.setSize(width + 100, height + 100);
+            frame.pack();
 
-                frame.setLocationByPlatform(true);
-                frame.setVisible(true);
-            }
+            frame.setLocationByPlatform(true);
+            frame.setVisible(true);
         });
     }
 
     public void addListeners() {
 
-        addMouseWheelListener(new MouseWheelListener() {
-            @Override
-            public void mouseWheelMoved(MouseWheelEvent e) {
-                int notches = e.getWheelRotation();
-                if (notches < 0) // up
-                    zoomBase += 0.5;
-                else //down
-                    if (zoomBase > 0.5) zoomBase -= 0.5;
+        addMouseWheelListener(e -> {
+            int notches = e.getWheelRotation();
+            if (notches < 0) // up
+                zoomBase += 0.5;
+            else //down
+                if (zoomBase > 0.5) zoomBase -= 0.5;
 
-                zoom = Math.pow(zoomBase, zoomPow);
-                repaint();
-            }
+            zoom = Math.pow(zoomBase, zoomPow);
+            repaint();
         });
 
         addMouseListener(new MouseAdapter() {

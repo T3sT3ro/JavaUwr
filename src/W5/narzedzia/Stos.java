@@ -5,7 +5,7 @@ import W5.narzedzia.wyjatki.WyjatekKontenera;
 /**
  * Stos zaimplementowany na liscie dwukierunkowej
  *
- * @param <T>
+ * @param <T> typ obiektow
  * @see AbstrakcyjnyKontener
  */
 public class Stos<T> extends AbstrakcyjnyKontener<T> {
@@ -17,8 +17,8 @@ public class Stos<T> extends AbstrakcyjnyKontener<T> {
 
     /**
      * Dodaje element na szczyt stosu
-     * @param val
-     * @throws WyjatekKontenera
+     * @param val nowy element
+     * @throws WyjatekKontenera {@link Lista}
      */
     public void add(T val) throws WyjatekKontenera {
         list.addLast(val);
@@ -26,8 +26,8 @@ public class Stos<T> extends AbstrakcyjnyKontener<T> {
 
     /**
      * Zwraca element ze szczytu stosu
-     * @return
-     * @throws WyjatekKontenera
+     * @return element ze szczytu stosu
+     * @throws WyjatekKontenera {@link Lista}
      */
     public T get() throws WyjatekKontenera {
         return list.getLast();
@@ -35,7 +35,7 @@ public class Stos<T> extends AbstrakcyjnyKontener<T> {
 
     /**
      * Usuwa element ze szczytu stosu
-     * @throws WyjatekKontenera
+     * @throws WyjatekKontenera {@link Lista}
      */
     public void remove() throws WyjatekKontenera {
         list.removeLast();
@@ -43,8 +43,8 @@ public class Stos<T> extends AbstrakcyjnyKontener<T> {
 
     /**
      * Usuwa i zwraca element ze szczytu stosu
-     * @return
-     * @throws WyjatekKontenera
+     * @return {@link Lista}
+     * @throws WyjatekKontenera {@link Lista}
      */
     public T pop() throws WyjatekKontenera {
         T ret = this.get();

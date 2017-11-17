@@ -3,6 +3,9 @@ package W5.wyrazenia.funkcje;
 import W5.wyrazenia.wyjatki.ONP_DzieleniePrzezZero;
 import W5.wyrazenia.wyjatki.WyjatekONP;
 
+/**
+ * Dzielenie
+ */
 public class Div extends Binary {
 
     @Override
@@ -11,7 +14,7 @@ public class Div extends Binary {
     }
 
     /**
-     * @return
+     * @return {@link W5.wyrazenia.Obliczalny}
      * @throws WyjatekONP Jesli dzielenie przez zero, zwroc wyjatek
      */
     @Override

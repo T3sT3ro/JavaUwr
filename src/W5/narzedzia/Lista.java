@@ -7,7 +7,7 @@ import W5.narzedzia.wyjatki.WyjatekKontenera;
 /**
  * Lista dwukierunkowa
  *
- * @param <T>
+ * @param <T> typ obiektow
  * @see AbstrakcyjnyKontener
  */
 public class Lista<T> extends AbstrakcyjnyKontener<T> {
@@ -43,7 +43,7 @@ public class Lista<T> extends AbstrakcyjnyKontener<T> {
     /**
      * Dodaje element na poczatku listy
      * @param val element do dodania
-     * @throws WyjatekKontenera
+     * @throws WyjatekKontenera jesli nie udalo sie dodac na poczatku
      */
     public void addFirst(T val) throws WyjatekKontenera {
         if (val == null)
@@ -60,7 +60,7 @@ public class Lista<T> extends AbstrakcyjnyKontener<T> {
     /**
      * Dodaje element na koncu listy
      * @param val element do dodania
-     * @throws WyjatekKontenera
+     * @throws WyjatekKontenera jesli nie udalo sie dodac na koncu
      */
     public void addLast(T val) throws WyjatekKontenera {
         if (val == null)
@@ -76,7 +76,7 @@ public class Lista<T> extends AbstrakcyjnyKontener<T> {
     /**
      * Zwraca pierwszy element listy
      * @return begin.next
-     * @throws WyjatekKontenera
+     * @throws WyjatekKontenera jesli nie udalo sie odczytac na poczatku
      */
     public T getFirst() throws WyjatekKontenera {
         if (this.isEmpty())
@@ -87,7 +87,7 @@ public class Lista<T> extends AbstrakcyjnyKontener<T> {
     /**
      * Zwraca ostatni element listy
      * @return end.prev
-     * @throws WyjatekKontenera
+     * @throws WyjatekKontenera jesli nie udalo sie odczytac na koncu
      */
     public T getLast() throws WyjatekKontenera {
         if (this.isEmpty())
@@ -97,7 +97,7 @@ public class Lista<T> extends AbstrakcyjnyKontener<T> {
 
     /**
      * Usuwa ostatni element z listy
-     * @throws WyjatekKontenera Jesli kontener jest pusty
+     * @throws WyjatekKontenera Jesli nie udalo sie usunac z poczatku
      */
     public void removeFirst() throws WyjatekKontenera {
         if (this.isEmpty())
@@ -110,7 +110,7 @@ public class Lista<T> extends AbstrakcyjnyKontener<T> {
 
     /**
      * Usuwa pierwszy element listy
-     * @throws WyjatekKontenera Jesli kontener jest pusty
+     * @throws WyjatekKontenera Jesli nie udalo sie usunac z konca
      */
     public void removeLast() throws WyjatekKontenera {
         if (this.isEmpty())
@@ -137,7 +137,7 @@ public class Lista<T> extends AbstrakcyjnyKontener<T> {
 
     /**
      * Zwraca obiekt z kontenera ktorego equals() jest rowne z podanym
-     * @param element
+     * @param element element do wyszukania
      * @return element lub null jesli element nie istnieje
      * @throws WyjatekKontenera jesli nie mozna wyszukac elementu
      */
@@ -165,7 +165,7 @@ public class Lista<T> extends AbstrakcyjnyKontener<T> {
 
     /**
      * Zwraca obiekt Node ktorego val jest rowna podanej
-     * @param element
+     * @param element element ktory bedzie porownany z Node.val
      * @return Node z val.equals(element)
      */
     private Node findNode(T element) {
