@@ -8,12 +8,12 @@ public class TestBST {
 
     static void add(int val) {
         t.insert(val);
-        System.out.println(t.toString());
+        System.out.println("a" + val + "\t" + t.toString());
     }
 
     static void rem(int val) {
         t.remove(val);
-        System.out.println(t.toString());
+        System.out.println("r" + val + "\t" + t.toString());
     }
 
     static void cl() {
@@ -62,6 +62,22 @@ public class TestBST {
         rem(0);
         is(15);
         is(0);
+        rem(-12);
+        rem(-7);
+        rem(0);
+        rem(2);
+        rem(5);
+        rem(15);
+        rem(2);
+        cl();
+        for (int i = 0; i < 20; i++)
+            add(2);
+        for (int i = 0; i < 20; i++)
+            rem(2);
+        for (int i = 0; i < 20; i++)
+            add(i);
+        for (int i = 0; i < 20; i++)
+            rem(i);
         cl();
     }
 }

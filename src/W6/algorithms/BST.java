@@ -10,14 +10,14 @@ package W6.algorithms;
 public class BST<T extends Comparable<T>> implements Dict<T> {
 
     int size = 0;
-    private Node root;
+    private Node root; // root's parent is always null
 
     /**
      * Constructs empty BST
      */
     public BST() {
         root = new Node();
-        root.parent = root;
+        root.parent = null;
         size = 0;
     }
 
@@ -56,7 +56,7 @@ public class BST<T extends Comparable<T>> implements Dict<T> {
 
     @Override
     public void remove(T element) {
-        if (!delete(root, element))
+        if (root.delete(element) == 0)
             size--;
     }
 
@@ -68,12 +68,12 @@ public class BST<T extends Comparable<T>> implements Dict<T> {
 
     @Override
     public T min() {
-        return leftmost(root).value;
+        return isEmpty() ? null : root.leftmost().value;
     }
 
     @Override
     public T max() {
-        return rightmost(root).value;
+        return isEmpty() ? null : root.rightmost().value;
     }
 
     @Override
@@ -105,48 +105,6 @@ public class BST<T extends Comparable<T>> implements Dict<T> {
     }
 
     /**
-     * Deletes node from BST
-     *
-     * @param removeNode root of the tree to start searching
-     * @param value      value of the node we want to remove
-     * @return false if deletion was successful, true if element don't exist in BST
-     */
-    private boolean delete(Node removeNode, T value) {
-        if (removeNode == null)
-            return true;
-        else if (value.compareTo(removeNode.value) < 0)
-            return delete(removeNode.left, value);
-        else if (value.compareTo(removeNode.value) > 0)
-            return delete(removeNode.right, value);
-        else {
-            if (removeNode.left != null && removeNode.right != null) {
-                Node leftmostNode = leftmost(removeNode.right);
-                removeNode.value = leftmostNode.value;
-                delete(leftmostNode, leftmostNode.value);
-            }
-            replaceCurrent(removeNode, removeNode.left != null ? removeNode.left : removeNode.right);
-            return false;
-        }
-    }
-
-    /**
-     * Replaces current Node with swapNode
-     *
-     * @param currentNode node to replace
-     * @param swapNode    node we want to put in place of the currentNode
-     */
-    private void replaceCurrent(Node currentNode, Node swapNode) {
-        if (currentNode.parent != null) {
-            if (currentNode == currentNode.parent.left)
-                currentNode.parent.left = swapNode;
-            else
-                currentNode.parent.right = swapNode;
-        }
-        if (swapNode != null)
-            swapNode.parent = currentNode.parent;
-    }
-
-    /**
      * Returns node which value is equal to element, or null if such doesn't exist
      *
      * @param element searched value
@@ -166,32 +124,6 @@ public class BST<T extends Comparable<T>> implements Dict<T> {
     }
 
     /**
-     * Returns leftmost descendant of Node parent
-     *
-     * @param parent start searching Node
-     * @return leftmost Node descendant of parent
-     */
-    private Node leftmost(Node parent) {
-        Node tmp = parent;
-        while (tmp.left != null)
-            tmp = tmp.left;
-        return tmp;
-    }
-
-    /**
-     * Returns rightmost descendant of Node parent
-     *
-     * @param parent start searching Node
-     * @return rightmost Node descendant of parent
-     */
-    private Node rightmost(Node parent) {
-        Node tmp = parent;
-        while (tmp.right != null)
-            tmp = tmp.right;
-        return tmp;
-    }
-
-    /**
      * Class node representing a node inside BST.
      * It has a value of type T and pointers to its parent, right son and left son.
      */
@@ -206,6 +138,75 @@ public class BST<T extends Comparable<T>> implements Dict<T> {
 
         public Node(T value) {
             this.value = value;
+        }
+
+        /**
+         * Returns node with smallest value in this node's subtree
+         *
+         * @return deepest leftmost descendant of this node
+         */
+        public Node leftmost() {
+            Node current = this;
+            while (current.left != null)
+                current = current.left;
+            return current;
+        }
+
+        /**
+         * Returns node with biggest value in this node's subtree
+         *
+         * @return deepest rightmost descendant of this node
+         */
+        public Node rightmost() {
+            Node current = this;
+            while (current.right != null)
+                current = current.right;
+            return current;
+        }
+
+        /**
+         * Swaps given node with swap node preserving pointers in the tree
+         *
+         * @param swapNode the node we want to replace with
+         */
+        public void replaceInParent(Node swapNode) {
+            if (this.parent != null) {
+                if (this == this.parent.left)
+                    this.parent.left = swapNode;
+                else
+                    this.parent.right = swapNode;
+            }
+            if (swapNode != null) {
+                swapNode.parent = this.parent;
+                if (swapNode.parent == null) // update root
+                    root = swapNode;
+            }
+        }
+
+        /**
+         * Deletes a node with given key from the tree
+         *
+         * @param value node with this value will be removed
+         * @return 0 if deleted successfully, 1 if the element didn't exist
+         */
+        public int delete(T value) {
+            if (value.compareTo(this.value) < 0)
+                return this.left != null ? this.left.delete(value) : 1;
+            else if (value.compareTo(this.value) > 0)
+                return this.right != null ? this.right.delete(value) : 1;
+            else {
+                if (this.left != null && this.right != null) {
+                    Node successor = this.right.leftmost();
+                    this.value = successor.value;
+                    successor.delete(successor.value);
+                } else if (this.left != null)
+                    this.replaceInParent(this.left);
+                else if (this.right != null)
+                    this.replaceInParent(this.right);
+                else
+                    this.replaceInParent(null);
+                return 0;
+            }
         }
     }
 }
