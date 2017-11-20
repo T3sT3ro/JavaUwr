@@ -29,7 +29,7 @@ elif [[ $1 == "-p" ]]; then
         dir="$src/$2"
         if [[ -d $dir ]]; then
             echo "Compiling $dir with default settings."
-            javac -d out -sourcepath $dir $(find $dir -name "*.java")
+            javac -d $out -sourcepath $dir $(find $dir -name "*.java")
             if [[ $? -eq 0 ]]; then exit 1; fi
         else
             echo "Directory $dir not found. Pass name of directory or leave empty to compile whole project."

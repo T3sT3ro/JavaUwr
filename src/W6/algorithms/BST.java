@@ -9,7 +9,7 @@ package W6.algorithms;
  */
 public class BST<T extends Comparable<T>> implements Dict<T> {
 
-    int size = 0;
+    private int size = 0;
     private Node root; // root's parent is always null
 
     /**
@@ -88,7 +88,7 @@ public class BST<T extends Comparable<T>> implements Dict<T> {
 
     @Override
     public String toString() {
-        return "{" + (isEmpty() ? "" : toStringTraverse(root, "")) + "}";
+        return "[" + (isEmpty() ? "" : toStringTraverse(root, "")) + "]";
     }
 
     private String toStringTraverse(Node node, String list) {
@@ -133,10 +133,10 @@ public class BST<T extends Comparable<T>> implements Dict<T> {
         Node right;
         Node parent;
 
-        public Node() {
+        private Node() {
         }
 
-        public Node(T value) {
+        private Node(T value) {
             this.value = value;
         }
 
@@ -145,7 +145,7 @@ public class BST<T extends Comparable<T>> implements Dict<T> {
          *
          * @return deepest leftmost descendant of this node
          */
-        public Node leftmost() {
+        private Node leftmost() {
             Node current = this;
             while (current.left != null)
                 current = current.left;
@@ -157,7 +157,7 @@ public class BST<T extends Comparable<T>> implements Dict<T> {
          *
          * @return deepest rightmost descendant of this node
          */
-        public Node rightmost() {
+        private Node rightmost() {
             Node current = this;
             while (current.right != null)
                 current = current.right;
@@ -169,7 +169,7 @@ public class BST<T extends Comparable<T>> implements Dict<T> {
          *
          * @param swapNode the node we want to replace with
          */
-        public void replaceInParent(Node swapNode) {
+        private void replaceInParent(Node swapNode) {
             if (this.parent != null) {
                 if (this == this.parent.left)
                     this.parent.left = swapNode;
@@ -189,7 +189,7 @@ public class BST<T extends Comparable<T>> implements Dict<T> {
          * @param value node with this value will be removed
          * @return 0 if deleted successfully, 1 if the element didn't exist
          */
-        public int delete(T value) {
+        private int delete(T value) {
             if (value.compareTo(this.value) < 0)
                 return this.left != null ? this.left.delete(value) : 1;
             else if (value.compareTo(this.value) > 0)
