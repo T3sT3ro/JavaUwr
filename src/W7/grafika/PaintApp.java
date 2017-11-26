@@ -75,7 +75,8 @@ class PaintWindow extends Frame {
         for (int i = 0; i < colorOption.length; i++) {
             if (i == 0)
                 colorOption[i] = new Checkbox("", colorCheckboxGroup, true);
-            colorOption[i] = new Checkbox("", colorCheckboxGroup, true);
+            else
+                colorOption[i] = new Checkbox("", colorCheckboxGroup, false);
             colorOption[i].setBackground(palette[i]);
             ColorPaletteListener cl = new ColorPaletteListener(palette[i]);
             colorOption[i].addItemListener(cl);
