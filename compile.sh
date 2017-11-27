@@ -20,7 +20,7 @@ mkdir -p $out
 if [[ $# -eq 0 ]]; then
 	#TODO >1 .compile.cfg handling to customize compilation process (adding custom libraries etc.)
 	echo "Compiling whole project. If you want to compile a subdirectory, pass it as an argument."
-	javac -d $out -sourcepath src $(find $src -name "*.java")
+	javac -d $out -sourcepath $src $(find $src -name "*.java")
 	if [[ $? -eq 0 ]]; then exit 1; fi
 # option to compile submodule passed
 elif [[ $1 == "-p" ]]; then
