@@ -10,6 +10,7 @@ import java.io.IOException;
 public class Engine {
 
     private static final double SCALE_MAX = 8;
+    public static final int BRUSH_SIZE_MAX = 10;
     private static Engine ourInstance = new Engine();
     private Mode mode;
     private Color color;
@@ -110,11 +111,32 @@ public class Engine {
         this.lastMousePos = lastMousePos;
     }
 
+    public int getBrushSize() {
+        return brushSize;
+    }
+
+    public void brushIncrease() {
+        if (brushSize < BRUSH_SIZE_MAX)
+            brushSize++;
+    }
+
+    public void brushDecrease() {
+        if (brushSize > 1)
+            brushSize--;
+    }
+
     public void draw(Point pos) {
         Point p = toImageCoordinates(pos);
         if (p.x < 0 || p.x >= image.getWidth() || p.y < 0 || p.y >= image.getHeight())
             return;
-        image.setRGB(p.x, p.y, color.getRGB());
+        Graphics2D g2 = (Graphics2D) image.getGraphics();
+        g2.setColor(color);
+
+        if (brushSize == 1)
+            g2.fillRect(p.x, p.y, 1, 1);
+        else
+            g2.fillOval(p.x - brushSize / 2, p.y - brushSize / 2, brushSize, brushSize);
+        //image.setRGB(p.x, p.y, color.getRGB());
     }
 
     ///////////

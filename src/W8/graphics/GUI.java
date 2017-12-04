@@ -31,6 +31,8 @@ public class GUI extends JFrame {
     private JSplitPane split;
     private JButton zoomResetButton;
     private JButton newImageButton;
+    private JButton brushIncreaseButton;
+    private JButton brushDecreaseButton;
     private JFileChooser fileChooser;
     private Border defaultBorder = BorderFactory.createLineBorder(ColorScheme.BORDER.get(), 1);
     private Border bottomBorder = BorderFactory.createMatteBorder(0, 0, 1, 0, ColorScheme.BORDER.get());
@@ -105,6 +107,8 @@ public class GUI extends JFrame {
         downButton.setBackground(ColorScheme.ROOT_BACKGROUND.get());
         leftButton.setBackground(ColorScheme.ROOT_BACKGROUND.get());
         rightButton.setBackground(ColorScheme.ROOT_BACKGROUND.get());
+        brushIncreaseButton.setBackground(ColorScheme.ROOT_BACKGROUND.get());
+        brushDecreaseButton.setBackground(ColorScheme.ROOT_BACKGROUND.get());
 
         sidemenu.setBackground(ColorScheme.ROOT_BACKGROUND.get());
         split.setBorder(defaultBorder);
@@ -182,30 +186,40 @@ public class GUI extends JFrame {
             updateFooter();
         });
 
+        // zoom reset listener
         zoomResetButton.addActionListener(e -> {
             engine.resetZoom();
             updateCanvasViewport();
             updateFooter();
         });
 
+        // move listeners
         upButton.addActionListener(e -> {
             JScrollBar vertical = canvasScroll.getVerticalScrollBar();
             vertical.setValue(vertical.getMinimum());
         });
-
         downButton.addActionListener(e -> {
             JScrollBar vertical = canvasScroll.getVerticalScrollBar();
             vertical.setValue(vertical.getMaximum());
         });
-
         leftButton.addActionListener(e -> {
             JScrollBar horizontal = canvasScroll.getHorizontalScrollBar();
             horizontal.setValue(horizontal.getMinimum());
         });
-
         rightButton.addActionListener(e -> {
             JScrollBar horizontal = canvasScroll.getHorizontalScrollBar();
             horizontal.setValue(horizontal.getMaximum());
+        });
+
+        // brush size change listeners
+        brushIncreaseButton.addActionListener(e -> {
+            engine.brushIncrease();
+            updateFooter();
+        });
+
+        brushDecreaseButton.addActionListener(e -> {
+            engine.brushDecrease();
+            updateFooter();
         });
 
         // JList color palette listener
@@ -299,6 +313,7 @@ public class GUI extends JFrame {
         footer.setText(
                 "x: " + engine.getLastMousePos().x +
                         ", y: " + engine.getLastMousePos().y +
+                        ", brush: " + engine.getBrushSize() +
                         ", zoom: x" + engine.getTransformation().getScaleX());
     }
 

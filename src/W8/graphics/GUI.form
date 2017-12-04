@@ -117,6 +117,24 @@
               <text value=""/>
             </properties>
           </component>
+          <component id="2c680" class="javax.swing.JButton" binding="brushIncreaseButton">
+            <constraints/>
+            <properties>
+              <borderPainted value="false"/>
+              <focusPainted value="false"/>
+              <icon value="W8/graphics/icons/plus.png"/>
+              <text value=""/>
+            </properties>
+          </component>
+          <component id="69e68" class="javax.swing.JButton" binding="brushDecreaseButton">
+            <constraints/>
+            <properties>
+              <borderPainted value="false"/>
+              <focusPainted value="false"/>
+              <icon value="W8/graphics/icons/minus.png"/>
+              <text value=""/>
+            </properties>
+          </component>
         </children>
       </toolbar>
       <splitpane id="31e21" binding="split">
