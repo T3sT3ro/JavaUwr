@@ -65,7 +65,7 @@ public class Car implements Serializable, Runnable {
         try {
             while (this.onBoard()) {
                 elapsed = System.currentTimeMillis();
-                if (elapsed - lastUpdate > 3000) {
+                if (elapsed - lastUpdate > 1000) {
                     deadlockSolve();
                 }
                 if (this.collidesAhead()) {
@@ -122,23 +122,23 @@ public class Car implements Serializable, Runnable {
 
     private synchronized boolean collidesAhead() {
         for (Car car : board.cars) {
-            if (car != this && this.from.value == car.from.value) {
+            if (car != this && this.from == car.from) {
 
-                if (this.from.value == Orientation.NORTH.value &&
+                if (this.from == Orientation.NORTH &&
                         this.y < car.y &&
                         this.y + PROBE_AHEAD > car.y)
                     return true;
-                if (this.from.value == Orientation.SOUTH.value &&
+                if (this.from == Orientation.SOUTH &&
                         this.y > car.y &&
                         this.y - PROBE_AHEAD < car.y)
                     return true;
-                if (this.from.value == Orientation.WEST.value &&
+                if (this.from == Orientation.WEST &&
                         this.x < car.x &&
                         this.x + PROBE_AHEAD > car.x)
                     return true;
-                if (this.from.value == Orientation.EAST.value &&
+                if (this.from == Orientation.EAST &&
                         this.x > car.x &&
-                        this.x - PROBE_AHEAD > car.x)
+                        this.x - PROBE_AHEAD < car.x)
                     return true;
             }
         }
