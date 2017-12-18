@@ -96,8 +96,9 @@ public class Car implements Serializable, Runnable {
                                         turn == -1 && !collidesRight() && !collidesLeft()) {
                                     board.CROSSROAD_OCCUPIED = true;
                                     moving = true;
-                                } else
+                                } else {
                                     Thread.sleep(100);
+                                }
                             }
                         }
 
@@ -227,6 +228,7 @@ public class Car implements Serializable, Runnable {
     synchronized void deadlockSolve() {
         for (Car c : board.cars) {
             if (c.onCrossroad()) {
+                board.CROSSROAD_OCCUPIED = true;
                 c.moving = true;
                 return;
             }
