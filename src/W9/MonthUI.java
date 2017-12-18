@@ -60,7 +60,6 @@ public class MonthUI extends JPanel {
         });
     }
 
-    // TODO gregorian change
     public void updateMonthUI(GregorianCalendar calendar) {
         for (int i = 0; i < 6 * 7; i++)
             dayTable.getComponent(i).setVisible(false);
