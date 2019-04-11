@@ -92,5 +92,19 @@ public class Test {
                 new Zmienna("x"),
                 new Zmienna("y")
         ).oblicz());
+
+        Wyrazenie prog1 = new Print(new If(new Stala(0), new Stala(7), new Stala(42)));
+        System.err.println(prog1.toString());
+
+        Wyrazenie silnia = new CodeBlock(
+                new Przypisz(new Zmienna("n"), new Stala(6)),
+                new Przypisz(new Zmienna("val"), new Stala(1)),
+                new While(new Zmienna("n"), new CodeBlock(
+                        new Przypisz(new Zmienna("val"), new Mnozenie(new Zmienna("val"), new Zmienna("n"))),
+                        new Przypisz(new Zmienna("n"), new Odejmowanie(new Zmienna("n"), new Stala(1)))
+                )),
+                new Zmienna("val"));
+        System.out.println(silnia);
+        System.out.println(silnia.oblicz());
     }
 }

@@ -14,6 +14,10 @@ public class Zmienna extends Wyrazenie {
      */
     private String zmienna;
 
+    public String getZmienna() {
+        return zmienna;
+    }
+
     /**
      * Tworzy nowa zmienna o nazwie name, zglasza wyjatek jesli nazwa jest nieprawidlowa.
      *
@@ -22,11 +26,14 @@ public class Zmienna extends Wyrazenie {
     public Zmienna(String name) {
         if (name.trim().length() == 0)
             throw new IllegalArgumentException("Nazwa zmiennej nie moze byc pusta!");
+        if (!name.matches("^[a-zA-Z0-9_]*$"))
+            throw new IllegalArgumentException("Nazwa zmiennej musi pasować do wyrażenia reguarnego '^[a-zA-Z0-9_]*$'");
         zmienna = name;
     }
 
     /**
      * Dodaje nowa zmienna lub przypisuje istniejacej nowa wartosc
+     *
      * @param key klucz
      * @param val wartosc
      */
@@ -36,6 +43,7 @@ public class Zmienna extends Wyrazenie {
 
     /**
      * Oblicza wartosc zmiennej
+     *
      * @return zwraca wartosc zmiennej
      */
     @Override
@@ -45,6 +53,6 @@ public class Zmienna extends Wyrazenie {
 
     @Override
     public String toString() {
-        return zmienna;
+        return "#" + zmienna;
     }
 }
